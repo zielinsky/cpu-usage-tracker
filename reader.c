@@ -1,37 +1,28 @@
 #include "reader.h"
 #include "cputracker.h"
 
-int get_nproc() {
-  FILE *fp;
-  char output[64];
-
-  fp = popen("nproc", "r");
-  if (fp == NULL) {
-    printf("Reading number of threads failed\n");
-    exit(EXIT_FAILURE);
+int get_nproc(int *nproc) {
+  *nproc = sysconf(_SC_NPROCESSORS_ONLN);
+  if (*nproc == -1) {
+    perror("Reading number of threads failed");
+    return -1;
   }
-
-  int nproc = 0;
-  if (fgets(output, sizeof(output) - 1, fp) != NULL) {
-    sscanf(output, "%d", &nproc);
-  }
-
-  pclose(fp);
-  return nproc;
+  return 0;
 }
 
 struct proc_stat *get_proc_stats() {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
   struct proc_stat *stats = malloc(nproc * sizeof(struct proc_stat));
-
   for (int thread = 0; thread < nproc; thread++) {
     fgets(line, sizeof(line), file);
     // assert(strncmp(line, "cpu", 3) == 0);
     if (strncmp(line, "cpu", 3) != 0) {
-      printf("Reading thread info failed\n");
-      exit(EXIT_FAILURE);
+      perror("Reading thread info failed\n");
+      free(stats);
+      return NULL;
     }
+
     sscanf(line, "%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
            stats[thread].name, &stats[thread].user, &stats[thread].nice,
            &stats[thread].system, &stats[thread].idle, &stats[thread].iowait,

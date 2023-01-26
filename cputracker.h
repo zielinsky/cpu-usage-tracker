@@ -1,5 +1,5 @@
 #ifndef CPUTRACKER_H
-#define CPUTRACKER_H 
+#define CPUTRACKER_H
 
 #include <assert.h>
 #include <stdio.h>
@@ -8,7 +8,6 @@
 
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
-
 
 extern int nproc;
 

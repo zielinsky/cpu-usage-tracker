@@ -1,11 +1,13 @@
 #include "cputracker.h"
 #include "reader.h"
+#include <stdlib.h>
 
 int nproc = 0;
 
-int main(){
-    nproc = get_nproc() + 1;
+int main() {
+  if (get_nproc(&nproc) == -1)
+    exit(EXIT_FAILURE);
 
-    print_stats();
-    return 0;
+  print_stats();
+  return 0;
 }
