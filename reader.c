@@ -1,5 +1,6 @@
 #include "reader.h"
 #include "cputracker.h"
+#include <stdio.h>
 
 int get_nproc(int *nproc) {
   *nproc = sysconf(_SC_NPROCESSORS_ONLN);
@@ -18,7 +19,7 @@ struct proc_stat *get_proc_stats() {
     fgets(line, sizeof(line), file);
     // assert(strncmp(line, "cpu", 3) == 0);
     if (strncmp(line, "cpu", 3) != 0) {
-      perror("Reading thread info failed\n");
+      perror("Reading thread info failed");
       free(stats);
       return NULL;
     }
@@ -29,6 +30,7 @@ struct proc_stat *get_proc_stats() {
            &stats[thread].irq, &stats[thread].softirq, &stats[thread].steal,
            &stats[thread].guest, &stats[thread].guest_nice);
   }
+  fclose(file);
   return stats;
 }
 
