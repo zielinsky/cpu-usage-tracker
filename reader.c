@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 int get_nproc() {
   FILE *fp;
@@ -25,23 +26,20 @@ int get_nproc() {
 int main() {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
-  struct proc_stat stats[get_nproc() + 1];
-  int thread_count = 0;
+  int nproc = get_nproc() + 1;
+  struct proc_stat stats[nproc];
 
-  while (fgets(line, sizeof(line), file)) {
-    if (strncmp(line, "cpu", 3) == 0) {
-      sscanf(line, "%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
-             stats[thread_count].name, &stats[thread_count].user,
-             &stats[thread_count].nice, &stats[thread_count].system,
-             &stats[thread_count].idle, &stats[thread_count].iowait,
-             &stats[thread_count].irq, &stats[thread_count].softirq,
-             &stats[thread_count].steal, &stats[thread_count].guest,
-             &stats[thread_count].guest_nice);
-      thread_count++;
-    }
+  for (int thread = 0; thread < nproc; thread++) {
+    fgets(line, sizeof(line), file);
+    assert(strncmp(line, "cpu", 3) == 0);
+    sscanf(line, "%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
+           stats[thread].name, &stats[thread].user, &stats[thread].nice,
+           &stats[thread].system, &stats[thread].idle, &stats[thread].iowait,
+           &stats[thread].irq, &stats[thread].softirq, &stats[thread].steal,
+           &stats[thread].guest, &stats[thread].guest_nice);
   }
 
-  for (int i = 0; i < thread_count; i++) {
+  for (int i = 0; i < nproc; i++) {
     printf("%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu\n", stats[i].name,
            stats[i].user, stats[i].nice, stats[i].system, stats[i].idle,
            stats[i].iowait, stats[i].irq, stats[i].softirq, stats[i].steal,
