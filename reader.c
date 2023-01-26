@@ -1,8 +1,5 @@
 #include "reader.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
+#include "cputracker.h"
 
 int get_nproc() {
   FILE *fp;
@@ -11,7 +8,7 @@ int get_nproc() {
   fp = popen("nproc", "r");
   if (fp == NULL) {
     printf("Reading number of threads failed\n");
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   int nproc = 0;
@@ -23,21 +20,29 @@ int get_nproc() {
   return nproc;
 }
 
-int main() {
+struct proc_stat *get_proc_stats() {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
-  int nproc = get_nproc() + 1;
-  struct proc_stat stats[nproc];
+  struct proc_stat *stats = malloc(nproc * sizeof(struct proc_stat));
 
   for (int thread = 0; thread < nproc; thread++) {
     fgets(line, sizeof(line), file);
-    assert(strncmp(line, "cpu", 3) == 0);
+    // assert(strncmp(line, "cpu", 3) == 0);
+    if (strncmp(line, "cpu", 3) != 0) {
+      printf("Reading thread info failed\n");
+      exit(EXIT_FAILURE);
+    }
     sscanf(line, "%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
            stats[thread].name, &stats[thread].user, &stats[thread].nice,
            &stats[thread].system, &stats[thread].idle, &stats[thread].iowait,
            &stats[thread].irq, &stats[thread].softirq, &stats[thread].steal,
            &stats[thread].guest, &stats[thread].guest_nice);
   }
+  return stats;
+}
+
+int print_stats() {
+  struct proc_stat *stats = get_proc_stats();
 
   for (int i = 0; i < nproc; i++) {
     printf("%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu\n", stats[i].name,
@@ -46,6 +51,6 @@ int main() {
            stats[i].guest, stats[i].guest_nice);
   }
 
-  fclose(file);
+  free(stats);
   return 0;
 }
