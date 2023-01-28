@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define BUFFER_SIZE 100
 
@@ -41,4 +42,5 @@ extern sem_t g_leftSpaceSemaphore;
 int get_nproc();
 int get_semaphore_value(sem_t *sem);
 int put_item(struct proc_stat *stats);
+struct proc_stat *remove_item();
 #endif

@@ -1,7 +1,6 @@
 #include "cputracker.h"
+#include "analyzer.h"
 #include "reader.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int g_nproc = 0;
 struct proc_stat *g_buffer[BUFFER_SIZE];
@@ -33,6 +32,15 @@ int put_item(struct proc_stat *stats) {
   return 0;
 }
 
+struct proc_stat *remove_item() {
+  int indexToRemove = get_semaphore_value(&g_filledSpaceSemaphore);
+  if (indexToRemove < 0) {
+    return NULL;
+  }
+  struct proc_stat *stats = g_buffer[indexToRemove];
+  return stats;
+}
+
 int main() {
   if (get_nproc(&g_nproc) == -1) {
     exit(EXIT_FAILURE);
@@ -44,6 +52,11 @@ int main() {
   }
 
   g_nproc++;
-  reader();
+  pthread_t readerThreadId;
+  pthread_t analyzerThreadId;
+  pthread_create(&readerThreadId, NULL, reader, NULL);
+  pthread_create(&analyzerThreadId, NULL, analyzer, NULL);
+  pthread_join(readerThreadId, NULL);
+  pthread_join(analyzerThreadId, NULL);
   return 0;
 }

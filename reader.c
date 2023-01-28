@@ -1,8 +1,5 @@
 #include "reader.h"
 #include "cputracker.h"
-#include <pthread.h>
-#include <semaphore.h>
-#include <stdio.h>
 
 struct proc_stat *get_proc_stats() {
   FILE *file = fopen("/proc/stat", "r");
@@ -28,11 +25,11 @@ struct proc_stat *get_proc_stats() {
   return stats;
 }
 
-void reader() {
+void *reader() {
   struct proc_stat *stats = NULL;
   while (1) {
     if ((stats = get_proc_stats()) == NULL) {
-      return;
+      return NULL;
     }
 
     sem_wait(&g_leftSpaceSemaphore);

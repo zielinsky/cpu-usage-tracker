@@ -6,3 +6,4 @@ reader
 reader.o
 cputracker.o
 cputracker
+analyzer.o
