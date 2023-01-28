@@ -43,15 +43,6 @@ void reader() {
 
     pthread_mutex_unlock(&bufferMutex);
 
-    sem_wait(&filledSpaceSemaphore);
+    sem_post(&filledSpaceSemaphore);
   }
-
-  for (int i = 0; i < nproc; i++) {
-    printf("%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu\n", stats[i].name,
-           stats[i].user, stats[i].nice, stats[i].system, stats[i].idle,
-           stats[i].iowait, stats[i].irq, stats[i].softirq, stats[i].steal,
-           stats[i].guest, stats[i].guest_nice);
-  }
-
-  // free(stats);
 }
