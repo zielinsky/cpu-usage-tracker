@@ -22,7 +22,7 @@ int get_semaphore_value(sem_t *sem) {
   return sval;
 }
 
-struct proc_stat *get_item() {
+struct proc_stat *get_item_from_buffer() {
   int index = get_semaphore_value(&g_filledSpaceSemaphore);
   return g_buffer[index];
 }

@@ -41,5 +41,5 @@ extern sem_t g_leftSpaceSemaphore;
 
 int get_nproc(int *nproc);
 int get_semaphore_value(sem_t *sem);
-struct proc_stat *get_item();
+struct proc_stat *get_item_from_buffer();
 #endif
