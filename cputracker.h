@@ -2,14 +2,17 @@
 #define CPUTRACKER_H
 
 #include <assert.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFFER_SIZE 100
+
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
-
-extern int nproc;
 
 struct proc_stat {
   char name[256];
@@ -29,4 +32,13 @@ struct proc_stat {
                   // operating systems under the control of the Linux kernel).
 };
 
+extern int nproc;
+extern struct proc_stat *BUFFER[];
+extern pthread_mutex_t bufferMutex;
+extern sem_t filledSpaceSemaphore;
+extern sem_t leftSpaceSemaphore;
+
+int get_nproc();
+int get_semaphore_value(sem_t *sem);
+int put_item(struct proc_stat *stats);
 #endif

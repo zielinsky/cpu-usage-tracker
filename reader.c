@@ -1,15 +1,8 @@
 #include "reader.h"
 #include "cputracker.h"
+#include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
-
-int get_nproc(int *nproc) {
-  *nproc = sysconf(_SC_NPROCESSORS_ONLN);
-  if (*nproc == -1) {
-    perror("Reading number of threads failed");
-    return -1;
-  }
-  return 0;
-}
 
 struct proc_stat *get_proc_stats() {
   FILE *file = fopen("/proc/stat", "r");
@@ -20,6 +13,7 @@ struct proc_stat *get_proc_stats() {
     // assert(strncmp(line, "cpu", 3) == 0);
     if (strncmp(line, "cpu", 3) != 0) {
       perror("Reading thread info failed");
+      fclose(file);
       free(stats);
       return NULL;
     }
@@ -34,8 +28,23 @@ struct proc_stat *get_proc_stats() {
   return stats;
 }
 
-int print_stats() {
-  struct proc_stat *stats = get_proc_stats();
+void reader() {
+  struct proc_stat *stats = NULL;
+  while (1) {
+    if ((stats = get_proc_stats()) == NULL) {
+      return;
+    }
+
+    sem_wait(&leftSpaceSemaphore);
+
+    pthread_mutex_lock(&bufferMutex);
+
+    put_item(stats);
+
+    pthread_mutex_unlock(&bufferMutex);
+
+    sem_wait(&filledSpaceSemaphore);
+  }
 
   for (int i = 0; i < nproc; i++) {
     printf("%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu\n", stats[i].name,
@@ -44,6 +53,5 @@ int print_stats() {
            stats[i].guest, stats[i].guest_nice);
   }
 
-  free(stats);
-  return 0;
+  // free(stats);
 }
