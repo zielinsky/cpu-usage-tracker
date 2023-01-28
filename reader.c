@@ -7,8 +7,8 @@
 struct proc_stat *get_proc_stats() {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
-  struct proc_stat *stats = malloc(nproc * sizeof(struct proc_stat));
-  for (int thread = 0; thread < nproc; thread++) {
+  struct proc_stat *stats = malloc(g_nproc * sizeof(struct proc_stat));
+  for (int thread = 0; thread < g_nproc; thread++) {
     fgets(line, sizeof(line), file);
     // assert(strncmp(line, "cpu", 3) == 0);
     if (strncmp(line, "cpu", 3) != 0) {
@@ -35,14 +35,14 @@ void reader() {
       return;
     }
 
-    sem_wait(&leftSpaceSemaphore);
+    sem_wait(&g_leftSpaceSemaphore);
 
-    pthread_mutex_lock(&bufferMutex);
+    pthread_mutex_lock(&g_bufferMutex);
 
     put_item(stats);
 
-    pthread_mutex_unlock(&bufferMutex);
+    pthread_mutex_unlock(&g_bufferMutex);
 
-    sem_post(&filledSpaceSemaphore);
+    sem_post(&g_filledSpaceSemaphore);
   }
 }

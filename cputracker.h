@@ -32,11 +32,11 @@ struct proc_stat {
                   // operating systems under the control of the Linux kernel).
 };
 
-extern int nproc;
-extern struct proc_stat *BUFFER[];
-extern pthread_mutex_t bufferMutex;
-extern sem_t filledSpaceSemaphore;
-extern sem_t leftSpaceSemaphore;
+extern int g_nproc;
+extern struct proc_stat *g_buffer[];
+extern pthread_mutex_t g_bufferMutex;
+extern sem_t g_filledSpaceSemaphore;
+extern sem_t g_leftSpaceSemaphore;
 
 int get_nproc();
 int get_semaphore_value(sem_t *sem);
