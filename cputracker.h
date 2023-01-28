@@ -39,8 +39,8 @@ extern pthread_mutex_t g_bufferMutex;
 extern sem_t g_filledSpaceSemaphore;
 extern sem_t g_leftSpaceSemaphore;
 
-int get_nproc();
+int get_nproc(int *nproc);
 int get_semaphore_value(sem_t *sem);
-int put_item(struct proc_stat *stats);
+struct proc_stat *get_item();
 struct proc_stat *remove_item();
 #endif

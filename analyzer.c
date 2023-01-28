@@ -1,7 +1,4 @@
 #include "analyzer.h"
-#include "cputracker.h"
-#include <stdio.h>
-int x = 0;
 
 void *analyzer() {
   while (1) {
@@ -19,6 +16,5 @@ void *analyzer() {
              stats[i].iowait, stats[i].irq, stats[i].softirq, stats[i].steal,
              stats[i].guest, stats[i].guest_nice);
     }
-    free(stats);
   }
 }

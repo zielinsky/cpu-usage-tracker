@@ -23,13 +23,12 @@ int get_semaphore_value(sem_t *sem) {
   return sval;
 }
 
-int put_item(struct proc_stat *stats) {
+struct proc_stat *get_item() {
   int index = get_semaphore_value(&g_filledSpaceSemaphore);
   if (index > BUFFER_SIZE) {
-    return -1;
+    return NULL;
   }
-  g_buffer[index] = stats;
-  return 0;
+  return g_buffer[index];
 }
 
 struct proc_stat *remove_item() {
@@ -44,6 +43,12 @@ struct proc_stat *remove_item() {
 int main() {
   if (get_nproc(&g_nproc) == -1) {
     exit(EXIT_FAILURE);
+  }
+  for(int i = 0 ; i < BUFFER_SIZE; i++){
+    g_buffer[i] = malloc(g_nproc * sizeof(struct proc_stat));
+    if(g_buffer[i] == NULL){
+      exit(EXIT_FAILURE);
+    }
   }
 
   if (sem_init(&g_filledSpaceSemaphore, 0, 0) ||

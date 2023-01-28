@@ -1,18 +1,14 @@
 #include "reader.h"
-#include "cputracker.h"
 
-struct proc_stat *get_proc_stats() {
+int get_proc_stats(struct proc_stat *stats) {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
-  struct proc_stat *stats = malloc(g_nproc * sizeof(struct proc_stat));
   for (int thread = 0; thread < g_nproc; thread++) {
     fgets(line, sizeof(line), file);
-    // assert(strncmp(line, "cpu", 3) == 0);
     if (strncmp(line, "cpu", 3) != 0) {
       perror("Reading thread info failed");
       fclose(file);
-      free(stats);
-      return NULL;
+      return -1;
     }
 
     sscanf(line, "%s %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
@@ -22,21 +18,23 @@ struct proc_stat *get_proc_stats() {
            &stats[thread].guest, &stats[thread].guest_nice);
   }
   fclose(file);
-  return stats;
+  return 0;
 }
 
 void *reader() {
-  struct proc_stat *stats = NULL;
   while (1) {
-    if ((stats = get_proc_stats()) == NULL) {
-      return NULL;
-    }
 
     sem_wait(&g_leftSpaceSemaphore);
 
     pthread_mutex_lock(&g_bufferMutex);
 
-    put_item(stats);
+    struct proc_stat *stats = get_item();
+    if(stats == NULL){
+      continue;
+    }
+    if (get_proc_stats(stats) == -1) {
+      continue;
+    }
 
     pthread_mutex_unlock(&g_bufferMutex);
 
