@@ -29,7 +29,7 @@ void *reader() {
     pthread_mutex_lock(&g_bufferMutex);
 
     struct proc_stat *stats = get_item();
-    if(stats == NULL){
+    if (stats == NULL) {
       continue;
     }
     if (get_proc_stats(stats) == -1) {

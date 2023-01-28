@@ -25,28 +25,19 @@ int get_semaphore_value(sem_t *sem) {
 
 struct proc_stat *get_item() {
   int index = get_semaphore_value(&g_filledSpaceSemaphore);
-  if (index > BUFFER_SIZE) {
-    return NULL;
-  }
+  // if (index > BUFFER_SIZE) {
+  //   return NULL;
+  // }
   return g_buffer[index];
-}
-
-struct proc_stat *remove_item() {
-  int indexToRemove = get_semaphore_value(&g_filledSpaceSemaphore);
-  if (indexToRemove < 0) {
-    return NULL;
-  }
-  struct proc_stat *stats = g_buffer[indexToRemove];
-  return stats;
 }
 
 int main() {
   if (get_nproc(&g_nproc) == -1) {
     exit(EXIT_FAILURE);
   }
-  for(int i = 0 ; i < BUFFER_SIZE; i++){
+  for (int i = 0; i < BUFFER_SIZE; i++) {
     g_buffer[i] = malloc(g_nproc * sizeof(struct proc_stat));
-    if(g_buffer[i] == NULL){
+    if (g_buffer[i] == NULL) {
       exit(EXIT_FAILURE);
     }
   }

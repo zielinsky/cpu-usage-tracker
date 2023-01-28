@@ -1,11 +1,12 @@
 #include "analyzer.h"
+#include "cputracker.h"
 
 void *analyzer() {
   while (1) {
     sem_wait(&g_filledSpaceSemaphore);
     pthread_mutex_lock(&g_bufferMutex);
 
-    struct proc_stat *stats = remove_item();
+    struct proc_stat *stats = get_item();
 
     pthread_mutex_unlock(&g_bufferMutex);
     sem_post(&g_leftSpaceSemaphore);
