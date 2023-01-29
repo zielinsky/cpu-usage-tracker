@@ -1,0 +1,48 @@
+\hypertarget{tests_8py_source}{}\doxysection{tests.\+py}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00001}00001\ \textcolor{comment}{\#!/usr/bin/env\ python3}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00003}00003\ \textcolor{keyword}{import}\ subprocess}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00004}00004\ \textcolor{keyword}{import}\ signal}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00005}00005\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00007}00007\ \textcolor{keyword}{def\ }sigterm\_case():}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00008}00008\ \ \ \ \ process\ =\ subprocess.Popen([\textcolor{stringliteral}{"{}./cputracker"{}}],\ stdout=subprocess.PIPE)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00009}00009\ \ \ \ \ time.sleep(2)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00010}00010\ \ \ \ \ \textcolor{comment}{\#\ Wysłanie\ sygnału\ SIGTERM\ do\ procesu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00011}00011\ \ \ \ \ process.send\_signal(signal.SIGTERM)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00013}00013\ \ \ \ \ \textcolor{comment}{\#\ Oczekiwanie\ na\ zakończenie\ procesu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00014}00014\ \ \ \ \ process.wait()}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00016}00016\ \ \ \ \ \textcolor{comment}{\#\ Odczytywanie\ wyjścia\ programu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00017}00017\ \ \ \ \ output\ =\ process.stdout.read()}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{if}\ b\textcolor{stringliteral}{"{}Error:\ Thread\ not\ responding...\ Terminating"{}}\ \textcolor{keywordflow}{in}\ output:}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}SIGTERM\ TEST:\ [OK]"{}})}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}SIGTERM\ TEST:\ [NO]"{}})}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00024}00024\ \textcolor{keyword}{def\ }valgrind\_case():}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00025}00025\ \ \ \ \ process\ =\ subprocess.Popen([\textcolor{stringliteral}{"{}valgrind\ -\/-\/leak-\/check=full\ ./cputracker\ -\/s"{}}],\ stdout=subprocess.PIPE,\ stderr=subprocess.PIPE,\ shell=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00026}00026\ \ \ \ \ time.sleep(6)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00027}00027\ \ \ \ \ \textcolor{comment}{\#\ Wysłanie\ sygnału\ SIGTERM\ do\ procesu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00028}00028\ \ \ \ \ process.send\_signal(signal.SIGTERM)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00030}00030\ \ \ \ \ \textcolor{comment}{\#\ Oczekiwanie\ na\ zakończenie\ procesu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00031}00031\ \ \ \ \ process.wait()}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00033}00033\ \ \ \ \ \textcolor{comment}{\#\ Odczytywanie\ wyjścia\ programu}}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00034}00034\ \ \ \ \ output\ =\ process.stderr.read()}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{if}\ b\textcolor{stringliteral}{"{}All\ heap\ blocks\ were\ freed\ -\/-\/\ no\ leaks\ are\ possible"{}}\ \textcolor{keywordflow}{in}\ output:}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}VALGRIND\ TEST:\ [OK]"{}})}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}VALGRIND\ TEST:\ [NO]"{}})}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ print(output)}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00042}00042\ sigterm\_case()}
+\DoxyCodeLine{\Hypertarget{tests_8py_source_l00043}00043\ valgrind\_case()}
+
+\end{DoxyCode}

@@ -1,0 +1,46 @@
+\hypertarget{printer_8c}{}\doxysection{printer.\+c File Reference}
+\label{printer_8c}\index{printer.c@{printer.c}}
+{\ttfamily \#include \char`\"{}printer.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{printer_8c_a5a83fcc864da6a3960b13f5e71d90b41}{printer}} (void $\ast$arg)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{printer_8c_a5a83fcc864da6a3960b13f5e71d90b41}\label{printer_8c_a5a83fcc864da6a3960b13f5e71d90b41}} 
+\index{printer.c@{printer.c}!printer@{printer}}
+\index{printer@{printer}!printer.c@{printer.c}}
+\doxysubsubsection{\texorpdfstring{printer()}{printer()}}
+{\footnotesize\ttfamily void $\ast$ printer (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{printer_8c_source_l00004}{4}} of file \mbox{\hyperlink{printer_8c_source}{printer.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00005\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
+\DoxyCodeLine{00006\ \ \ (void)arg;}
+\DoxyCodeLine{00007\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ notify\_watchdog(Printer);}
+\DoxyCodeLine{00009\ \ \ \ \ sem\_wait(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{00010\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ system(\textcolor{stringliteral}{"{}clear"{}});}
+\DoxyCodeLine{00013\ \ \ \ \ avg\ =\ get\_item\_from\_print\_buffer();}
+\DoxyCodeLine{00014\ \ \ \ \ printf(\textcolor{stringliteral}{"{}CORE\(\backslash\)t\%\%\(\backslash\)n"{}});}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[\%2d]:\ \(\backslash\)033[38;2;\%lu;\%lu;0m\%3lu\(\backslash\)033[0m\(\backslash\)n"{}},\ i,\ avg[i]\ *\ 5\ /\ 2,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ 255\ -\/\ avg[i]\ *\ 5\ /\ 2,\ avg[i]);}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00021\ \ \ \ \ sem\_post(\&g\_printLeftSpaceSemaphore);}
+\DoxyCodeLine{00022\ \ \ \ \ sleep(1);}
+\DoxyCodeLine{00023\ \ \ \}}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}

@@ -1,3 +1,4 @@
+/// @file reader.c
 #include "reader.h"
 
 static int get_proc_stats(struct proc_stat *stats, int threads) {

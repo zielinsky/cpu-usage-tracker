@@ -1,0 +1,163 @@
+\hypertarget{structproc__stat}{}\doxysection{proc\+\_\+stat Struct Reference}
+\label{structproc__stat}\index{proc\_stat@{proc\_stat}}
+
+
+Use brief, otherwise the index won\textquotesingle{}t have a brief explanation.  
+
+
+
+
+{\ttfamily \#include $<$cputracker.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structproc__stat_af3c2a6234f560575ff5414447082d839}{name}} \mbox{[}256\mbox{]}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{user}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{nice}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{system}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{idle}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{iowait}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{irq}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{softirq}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{steal}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}{guest}}
+\item 
+unsigned long \mbox{\hyperlink{structproc__stat_aa54659ed14b3f801e47e7200164b5704}{guest\+\_\+nice}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Use brief, otherwise the index won\textquotesingle{}t have a brief explanation. 
+
+Detailed explanation. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00028}{28}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}\label{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}} 
+\index{proc\_stat@{proc\_stat}!guest@{guest}}
+\index{guest@{guest}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{guest}{guest}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::guest}
+
+Time spent for running a virtual CPU or guest OS under the control of the kernel. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00040}{40}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_aa54659ed14b3f801e47e7200164b5704}\label{structproc__stat_aa54659ed14b3f801e47e7200164b5704}} 
+\index{proc\_stat@{proc\_stat}!guest\_nice@{guest\_nice}}
+\index{guest\_nice@{guest\_nice}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{guest\_nice}{guest\_nice}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::guest\+\_\+nice}
+
+Time spent running a niced guest (virtual CPU for guest operating systems under the control of the Linux kernel). 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00042}{42}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}\label{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}} 
+\index{proc\_stat@{proc\_stat}!idle@{idle}}
+\index{idle@{idle}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{idle}{idle}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::idle}
+
+Time spent in vacations twiddling thumbs. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00033}{33}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_a196b27e73492d632d584141cccb5d379}\label{structproc__stat_a196b27e73492d632d584141cccb5d379}} 
+\index{proc\_stat@{proc\_stat}!iowait@{iowait}}
+\index{iowait@{iowait}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{iowait}{iowait}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::iowait}
+
+Time spent waiting for I/O to completed. This is considered idle time too. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00034}{34}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_a51e94dcd31151948891922d3afb65e42}\label{structproc__stat_a51e94dcd31151948891922d3afb65e42}} 
+\index{proc\_stat@{proc\_stat}!irq@{irq}}
+\index{irq@{irq}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{irq}{irq}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::irq}
+
+Time spent serving hardware interrupts. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00036}{36}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_af3c2a6234f560575ff5414447082d839}\label{structproc__stat_af3c2a6234f560575ff5414447082d839}} 
+\index{proc\_stat@{proc\_stat}!name@{name}}
+\index{name@{name}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily char proc\+\_\+stat\+::name\mbox{[}256\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00029}{29}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}\label{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}} 
+\index{proc\_stat@{proc\_stat}!nice@{nice}}
+\index{nice@{nice}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{nice}{nice}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::nice}
+
+Time spent with niced processes in user mode. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00031}{31}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}\label{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}} 
+\index{proc\_stat@{proc\_stat}!softirq@{softirq}}
+\index{softirq@{softirq}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{softirq}{softirq}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::softirq}
+
+Time spent serving software interrupts. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00037}{37}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}\label{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}} 
+\index{proc\_stat@{proc\_stat}!steal@{steal}}
+\index{steal@{steal}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{steal}{steal}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::steal}
+
+Time stolen by other operating systems running in a virtual environment. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00038}{38}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}\label{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}} 
+\index{proc\_stat@{proc\_stat}!system@{system}}
+\index{system@{system}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{system}{system}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::system}
+
+Time spent running in kernel mode. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00032}{32}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}\label{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}} 
+\index{proc\_stat@{proc\_stat}!user@{user}}
+\index{user@{user}!proc\_stat@{proc\_stat}}
+\doxysubsubsection{\texorpdfstring{user}{user}}
+{\footnotesize\ttfamily unsigned long proc\+\_\+stat\+::user}
+
+Time spent with normal processing in user mode. 
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00030}{30}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cputracker_8h}{cputracker.\+h}}\end{DoxyCompactItemize}

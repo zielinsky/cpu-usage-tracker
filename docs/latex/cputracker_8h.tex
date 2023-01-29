@@ -1,0 +1,286 @@
+\hypertarget{cputracker_8h}{}\doxysection{cputracker.\+h File Reference}
+\label{cputracker_8h}\index{cputracker.h@{cputracker.h}}
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$semaphore.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}}
+\begin{DoxyCompactList}\small\item\em Use brief, otherwise the index won\textquotesingle{}t have a brief explanation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{cputracker_8h_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~5
+\item 
+\#define \mbox{\hyperlink{cputracker_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\+\_\+\+FAILURE}}~1
+\item 
+\#define \mbox{\hyperlink{cputracker_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{cputracker_8h_a45ba202b05caf39795aeca91b0ae547e}{TIMEOUT}}~2
+\item 
+\#define \mbox{\hyperlink{cputracker_8h_a2fcfdf60d28725b11b5a3539d3acd0d4}{THREADS}}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries State} \{ {\bfseries Reader} = 0
+, {\bfseries Printer} = 1
+, {\bfseries Analyzer} = 2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long $\ast$ \mbox{\hyperlink{cputracker_8h_a2b8f2341417ff6536dcfd85113bd3a5d}{get\+\_\+item\+\_\+from\+\_\+print\+\_\+buffer}} (void)
+\item 
+struct \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} $\ast$ \mbox{\hyperlink{cputracker_8h_a6d7b4993bb9144e4cab9f9c7420c996a}{get\+\_\+item\+\_\+from\+\_\+data\+\_\+buffer}} (void)
+\item 
+void \mbox{\hyperlink{cputracker_8h_ac99b6069bf629214ce6258902739d613}{notify\+\_\+watchdog}} (int id)
+\item 
+void \mbox{\hyperlink{cputracker_8h_aa1407f3b7f6dc9f7ba1c2049f33cfa14}{main\+\_\+test}} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{cputracker_8h_ada75f380c42154c470e2e3c3431e428b}{g\+\_\+nproc}}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{cputracker_8h_a1ea12f2cf7f8d6c55575a0fcdfaf25b3}{g\+\_\+data\+Buffer\+Mutex}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{cputracker_8h_ae4ab6859f08e8d192e332bcc0396aace}{g\+\_\+data\+Filled\+Space\+Semaphore}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{cputracker_8h_abe340c3124d5bd13bbae74ca586ec052}{g\+\_\+data\+Left\+Space\+Semaphore}}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{cputracker_8h_a61bf1e5999a9da9e3ef534a10f2c3319}{g\+\_\+print\+Buffer\+Mutex}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{cputracker_8h_a65a12649958e4813753cdffd576cb282}{g\+\_\+print\+Filled\+Space\+Semaphore}}
+\item 
+sem\+\_\+t \mbox{\hyperlink{cputracker_8h_a1f1095a3fda9dda3517fabf56803f2e9}{g\+\_\+print\+Left\+Space\+Semaphore}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{cputracker_8h_a6b20d41d6252e9871430c242cb1a56e7}\label{cputracker_8h_a6b20d41d6252e9871430c242cb1a56e7}} 
+\index{cputracker.h@{cputracker.h}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~5}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00014}{14}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{cputracker_8h_a73efe787c131b385070f25d18b7c9aa4}\label{cputracker_8h_a73efe787c131b385070f25d18b7c9aa4}} 
+\index{cputracker.h@{cputracker.h}!EXIT\_FAILURE@{EXIT\_FAILURE}}
+\index{EXIT\_FAILURE@{EXIT\_FAILURE}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{EXIT\_FAILURE}{EXIT\_FAILURE}}
+{\footnotesize\ttfamily \#define EXIT\+\_\+\+FAILURE~1}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00016}{16}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{cputracker_8h_a687984f47d8cce148d1b914d2b79612a}\label{cputracker_8h_a687984f47d8cce148d1b914d2b79612a}} 
+\index{cputracker.h@{cputracker.h}!EXIT\_SUCCESS@{EXIT\_SUCCESS}}
+\index{EXIT\_SUCCESS@{EXIT\_SUCCESS}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{EXIT\_SUCCESS}{EXIT\_SUCCESS}}
+{\footnotesize\ttfamily \#define EXIT\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00017}{17}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{cputracker_8h_a2fcfdf60d28725b11b5a3539d3acd0d4}\label{cputracker_8h_a2fcfdf60d28725b11b5a3539d3acd0d4}} 
+\index{cputracker.h@{cputracker.h}!THREADS@{THREADS}}
+\index{THREADS@{THREADS}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{THREADS}{THREADS}}
+{\footnotesize\ttfamily \#define THREADS~3}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00020}{20}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+\mbox{\Hypertarget{cputracker_8h_a45ba202b05caf39795aeca91b0ae547e}\label{cputracker_8h_a45ba202b05caf39795aeca91b0ae547e}} 
+\index{cputracker.h@{cputracker.h}!TIMEOUT@{TIMEOUT}}
+\index{TIMEOUT@{TIMEOUT}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{TIMEOUT}{TIMEOUT}}
+{\footnotesize\ttfamily \#define TIMEOUT~2}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00019}{19}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{cputracker_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{cputracker_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
+\index{cputracker.h@{cputracker.h}!State@{State}}
+\index{State@{State}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily enum State}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8h_source_l00022}{22}} of file \mbox{\hyperlink{cputracker_8h_source}{cputracker.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \{Reader\ =\ 0,\ Printer\ =\ 1,\ Analyzer\ =\ 2\};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{cputracker_8h_a6d7b4993bb9144e4cab9f9c7420c996a}\label{cputracker_8h_a6d7b4993bb9144e4cab9f9c7420c996a}} 
+\index{cputracker.h@{cputracker.h}!get\_item\_from\_data\_buffer@{get\_item\_from\_data\_buffer}}
+\index{get\_item\_from\_data\_buffer@{get\_item\_from\_data\_buffer}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{get\_item\_from\_data\_buffer()}{get\_item\_from\_data\_buffer()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} $\ast$ get\+\_\+item\+\_\+from\+\_\+data\+\_\+buffer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00048}{48}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{int}\ index\ =\ get\_semaphore\_value(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{return}\ g\_dataBuffer[index];}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{cputracker_8h_a2b8f2341417ff6536dcfd85113bd3a5d}\label{cputracker_8h_a2b8f2341417ff6536dcfd85113bd3a5d}} 
+\index{cputracker.h@{cputracker.h}!get\_item\_from\_print\_buffer@{get\_item\_from\_print\_buffer}}
+\index{get\_item\_from\_print\_buffer@{get\_item\_from\_print\_buffer}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{get\_item\_from\_print\_buffer()}{get\_item\_from\_print\_buffer()}}
+{\footnotesize\ttfamily unsigned long $\ast$ get\+\_\+item\+\_\+from\+\_\+print\+\_\+buffer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00053}{53}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{int}\ index\ =\ get\_semaphore\_value(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{return}\ g\_printBuffer[index];}
+\DoxyCodeLine{00056\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{cputracker_8h_aa1407f3b7f6dc9f7ba1c2049f33cfa14}\label{cputracker_8h_aa1407f3b7f6dc9f7ba1c2049f33cfa14}} 
+\index{cputracker.h@{cputracker.h}!main\_test@{main\_test}}
+\index{main\_test@{main\_test}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{main\_test()}{main\_test()}}
+{\footnotesize\ttfamily void main\+\_\+test (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00081}{81}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{int}\ nproc;}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&nproc)\ ==\ 0)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ assert(nproc\ >=\ 1);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{cputracker_8h_ac99b6069bf629214ce6258902739d613}\label{cputracker_8h_ac99b6069bf629214ce6258902739d613}} 
+\index{cputracker.h@{cputracker.h}!notify\_watchdog@{notify\_watchdog}}
+\index{notify\_watchdog@{notify\_watchdog}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{notify\_watchdog()}{notify\_watchdog()}}
+{\footnotesize\ttfamily void notify\+\_\+watchdog (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00058}{58}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ pthread\_mutex\_lock(\&watchdogMutex);}
+\DoxyCodeLine{00060\ \ \ working[id]\ =\ 1;}
+\DoxyCodeLine{00061\ \ \ pthread\_mutex\_unlock(\&watchdogMutex);}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{cputracker_8h_a1ea12f2cf7f8d6c55575a0fcdfaf25b3}\label{cputracker_8h_a1ea12f2cf7f8d6c55575a0fcdfaf25b3}} 
+\index{cputracker.h@{cputracker.h}!g\_dataBufferMutex@{g\_dataBufferMutex}}
+\index{g\_dataBufferMutex@{g\_dataBufferMutex}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_dataBufferMutex}{g\_dataBufferMutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t g\+\_\+data\+Buffer\+Mutex\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00010}{10}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_ae4ab6859f08e8d192e332bcc0396aace}\label{cputracker_8h_ae4ab6859f08e8d192e332bcc0396aace}} 
+\index{cputracker.h@{cputracker.h}!g\_dataFilledSpaceSemaphore@{g\_dataFilledSpaceSemaphore}}
+\index{g\_dataFilledSpaceSemaphore@{g\_dataFilledSpaceSemaphore}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_dataFilledSpaceSemaphore}{g\_dataFilledSpaceSemaphore}}
+{\footnotesize\ttfamily sem\+\_\+t g\+\_\+data\+Filled\+Space\+Semaphore\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00011}{11}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_abe340c3124d5bd13bbae74ca586ec052}\label{cputracker_8h_abe340c3124d5bd13bbae74ca586ec052}} 
+\index{cputracker.h@{cputracker.h}!g\_dataLeftSpaceSemaphore@{g\_dataLeftSpaceSemaphore}}
+\index{g\_dataLeftSpaceSemaphore@{g\_dataLeftSpaceSemaphore}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_dataLeftSpaceSemaphore}{g\_dataLeftSpaceSemaphore}}
+{\footnotesize\ttfamily sem\+\_\+t g\+\_\+data\+Left\+Space\+Semaphore\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00012}{12}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_ada75f380c42154c470e2e3c3431e428b}\label{cputracker_8h_ada75f380c42154c470e2e3c3431e428b}} 
+\index{cputracker.h@{cputracker.h}!g\_nproc@{g\_nproc}}
+\index{g\_nproc@{g\_nproc}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_nproc}{g\_nproc}}
+{\footnotesize\ttfamily int g\+\_\+nproc\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00008}{8}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_a61bf1e5999a9da9e3ef534a10f2c3319}\label{cputracker_8h_a61bf1e5999a9da9e3ef534a10f2c3319}} 
+\index{cputracker.h@{cputracker.h}!g\_printBufferMutex@{g\_printBufferMutex}}
+\index{g\_printBufferMutex@{g\_printBufferMutex}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_printBufferMutex}{g\_printBufferMutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t g\+\_\+print\+Buffer\+Mutex\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00015}{15}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_a65a12649958e4813753cdffd576cb282}\label{cputracker_8h_a65a12649958e4813753cdffd576cb282}} 
+\index{cputracker.h@{cputracker.h}!g\_printFilledSpaceSemaphore@{g\_printFilledSpaceSemaphore}}
+\index{g\_printFilledSpaceSemaphore@{g\_printFilledSpaceSemaphore}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_printFilledSpaceSemaphore}{g\_printFilledSpaceSemaphore}}
+{\footnotesize\ttfamily sem\+\_\+t g\+\_\+print\+Filled\+Space\+Semaphore\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00016}{16}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+
+\mbox{\Hypertarget{cputracker_8h_a1f1095a3fda9dda3517fabf56803f2e9}\label{cputracker_8h_a1f1095a3fda9dda3517fabf56803f2e9}} 
+\index{cputracker.h@{cputracker.h}!g\_printLeftSpaceSemaphore@{g\_printLeftSpaceSemaphore}}
+\index{g\_printLeftSpaceSemaphore@{g\_printLeftSpaceSemaphore}!cputracker.h@{cputracker.h}}
+\doxysubsubsection{\texorpdfstring{g\_printLeftSpaceSemaphore}{g\_printLeftSpaceSemaphore}}
+{\footnotesize\ttfamily sem\+\_\+t g\+\_\+print\+Left\+Space\+Semaphore\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00017}{17}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+

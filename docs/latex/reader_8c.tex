@@ -1,0 +1,65 @@
+\hypertarget{reader_8c}{}\doxysection{reader.\+c File Reference}
+\label{reader_8c}\index{reader.c@{reader.c}}
+{\ttfamily \#include \char`\"{}reader.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{reader_8c_a3fbc15b819e0a6f15f2c576d9dc598a0}{reader\+\_\+test}} (void)
+\item 
+void $\ast$ \mbox{\hyperlink{reader_8c_a4d833855ea97e137308265ce5be5a699}{reader}} (void $\ast$arg)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{reader_8c_a4d833855ea97e137308265ce5be5a699}\label{reader_8c_a4d833855ea97e137308265ce5be5a699}} 
+\index{reader.c@{reader.c}!reader@{reader}}
+\index{reader@{reader}!reader.c@{reader.c}}
+\doxysubsubsection{\texorpdfstring{reader()}{reader()}}
+{\footnotesize\ttfamily void $\ast$ reader (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{reader_8c_source_l00030}{30}} of file \mbox{\hyperlink{reader_8c_source}{reader.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ (void)arg;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ notify\_watchdog(Reader);}
+\DoxyCodeLine{00034\ \ \ \ \ sem\_wait(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{00035\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(get\_item\_from\_data\_buffer(),\ g\_nproc)\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00044\ \ \ \ \ sem\_post(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{00045\ \ \ \ \ usleep(READ\_DELAY);}
+\DoxyCodeLine{00046\ \ \ \}}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{reader_8c_a3fbc15b819e0a6f15f2c576d9dc598a0}\label{reader_8c_a3fbc15b819e0a6f15f2c576d9dc598a0}} 
+\index{reader.c@{reader.c}!reader\_test@{reader\_test}}
+\index{reader\_test@{reader\_test}!reader.c@{reader.c}}
+\doxysubsubsection{\texorpdfstring{reader\_test()}{reader\_test()}}
+{\footnotesize\ttfamily void reader\+\_\+test (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{reader_8c_source_l00023}{23}} of file \mbox{\hyperlink{reader_8c_source}{reader.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ stats;}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,1)\ ==\ 0)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ assert(strncmp(stats.name,\ \textcolor{stringliteral}{"{}cpu"{}},\ 3)\ ==\ 0);}
+\DoxyCodeLine{00027\ \ \ \}}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}

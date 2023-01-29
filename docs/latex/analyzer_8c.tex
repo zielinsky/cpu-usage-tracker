@@ -1,0 +1,71 @@
+\hypertarget{analyzer_8c}{}\doxysection{analyzer.\+c File Reference}
+\label{analyzer_8c}\index{analyzer.c@{analyzer.c}}
+{\ttfamily \#include \char`\"{}analyzer.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}{analyzer}} (void $\ast$arg)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}\label{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}} 
+\index{analyzer.c@{analyzer.c}!analyzer@{analyzer}}
+\index{analyzer@{analyzer}!analyzer.c@{analyzer.c}}
+\doxysubsubsection{\texorpdfstring{analyzer()}{analyzer()}}
+{\footnotesize\ttfamily void $\ast$ analyzer (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{analyzer_8c_source_l00028}{28}} of file \mbox{\hyperlink{analyzer_8c_source}{analyzer.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *prev;}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *bufforAvg;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *stats;}
+\DoxyCodeLine{00033\ \ \ }
+\DoxyCodeLine{00034\ \ \ (void)arg;}
+\DoxyCodeLine{00035\ \ \ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordflow}{if}\ ((prev\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}})))\ ==\ NULL)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00038\ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordflow}{if}\ ((avg\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})))\ ==\ NULL)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ free(prev);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00042\ \ \ \}}
+\DoxyCodeLine{00043\ \ \ pthread\_cleanup\_push(free,\ prev)}
+\DoxyCodeLine{00044\ \ \ pthread\_cleanup\_push(free,\ avg)}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ notify\_watchdog(Analyzer);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ sem\_wait(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{00049\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ stats\ =\ get\_item\_from\_data\_buffer();}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ avg[i]\ =\ average\_cpu\_usage(prev[i],\ stats[i]);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ prev[i]\ =\ stats[i];}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00058\ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ sem\_wait(\&g\_printLeftSpaceSemaphore);}
+\DoxyCodeLine{00063\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ bufforAvg\ =\ get\_item\_from\_print\_buffer();}
+\DoxyCodeLine{00066\ \ \ \ \ memcpy(bufforAvg,\ avg,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00069\ \ \ \ \ sem\_post(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{00072\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{00073\ \}}
+
+\end{DoxyCode}

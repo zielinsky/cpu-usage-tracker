@@ -1,0 +1,73 @@
+\hypertarget{analyzer_8c_source}{}\doxysection{analyzer.\+c}
+\mbox{\hyperlink{analyzer_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}analyzer.h"{}}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00009}00009\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ average\_cpu\_usage(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}}\ prev,}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00010}00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}}\ current)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00011}00011\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ prevIdle\ =\ prev.\mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{idle}}\ +\ prev.\mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{iowait}};}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00012}00012\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ idle\ =\ current.\mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{idle}}\ +\ current.\mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{iowait}};}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00014}00014\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ prevNonIdle\ =\ prev.\mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{user}}\ +\ prev.\mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{nice}}\ +\ prev.\mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{system}}\ +\ prev.\mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{irq}}\ +}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev.\mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{softirq}}\ +\ prev.\mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{steal}};}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00016}00016\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nonIdle\ =\ current.\mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{user}}\ +\ current.\mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{nice}}\ +\ current.\mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{system}}\ +}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current.\mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{irq}}\ +\ current.\mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{softirq}}\ +\ current.\mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{steal}};}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00019}00019\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ prevTotal\ =\ prevIdle\ +\ prevNonIdle;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00020}00020\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ total\ =\ idle\ +\ nonIdle;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00022}00022\ \ \ total\ -\/=\ prevTotal;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00023}00023\ \ \ idle\ -\/=\ prevIdle;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00025}00025\ \ \ \textcolor{keywordflow}{return}\ (total\ -\/\ idle)\ *\ 100\ /\ total;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00028}00028\ \textcolor{keywordtype}{void}\ *analyzer(\textcolor{keywordtype}{void}\ *arg)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00029}00029\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *prev;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00030}00030\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00031}00031\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *bufforAvg;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00032}00032\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *stats;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00033}00033\ \ \ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00034}00034\ \ \ (void)arg;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00035}00035\ \ \ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00036}00036\ \ \ \textcolor{keywordflow}{if}\ ((prev\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}})))\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00038}00038\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00039}00039\ \ \ \textcolor{keywordflow}{if}\ ((avg\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})))\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00040}00040\ \ \ \ \ free(prev);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00042}00042\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00043}00043\ \ \ pthread\_cleanup\_push(free,\ prev)}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00044}00044\ \ \ pthread\_cleanup\_push(free,\ avg)}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00045}00045\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00046}00046\ \ \ \ \ notify\_watchdog(Analyzer);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00048}00048\ \ \ \ \ sem\_wait(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00049}00049\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00051}00051\ \ \ \ \ stats\ =\ get\_item\_from\_data\_buffer();}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00053}00053\ \ \ \ \ \ \ avg[i]\ =\ average\_cpu\_usage(prev[i],\ stats[i]);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00054}00054\ \ \ \ \ \ \ prev[i]\ =\ stats[i];}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00057}00057\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00058}00058\ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00062}00062\ \ \ \ \ sem\_wait(\&g\_printLeftSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00063}00063\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00065}00065\ \ \ \ \ bufforAvg\ =\ get\_item\_from\_print\_buffer();}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00066}00066\ \ \ \ \ memcpy(bufforAvg,\ avg,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00068}00068\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00069}00069\ \ \ \ \ sem\_post(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00070}00070\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00071}00071\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00072}00072\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{\Hypertarget{analyzer_8c_source_l00073}00073\ \}}
+
+\end{DoxyCode}

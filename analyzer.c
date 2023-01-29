@@ -1,5 +1,11 @@
+/// @file analyzer.c
 #include "analyzer.h"
 
+/**
+ * Calculates avarage cpu usage.
+ * @param[in] prev
+ * @param[out] avarage_cpu_usage
+ */
 static unsigned long average_cpu_usage(struct proc_stat prev,
                                        struct proc_stat current) {
   unsigned long prevIdle = prev.idle + prev.iowait;

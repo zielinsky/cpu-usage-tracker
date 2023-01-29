@@ -1,0 +1,52 @@
+\hypertarget{reader_8c_source}{}\doxysection{reader.\+c}
+\mbox{\hyperlink{reader_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}reader.h"{}}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00004}00004\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ get\_proc\_stats(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *stats,\ \textcolor{keywordtype}{int}\ threads)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00005}00005\ \ \ FILE\ *file\ =\ fopen(\textcolor{stringliteral}{"{}/proc/stat"{}},\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00006}00006\ \ \ \textcolor{keywordtype}{char}\ line[1024];}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00007}00007\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ thread\ =\ 0;\ thread\ <\ threads;\ thread++)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00008}00008\ \ \ \ \ \textcolor{keywordflow}{if}\ (fgets(line,\ \textcolor{keyword}{sizeof}(line),\ file)\ ==\ NULL\ ||}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00009}00009\ \ \ \ \ \ \ \ \ strncmp(line,\ \textcolor{stringliteral}{"{}cpu"{}},\ 3)\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00010}00010\ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00011}00011\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00012}00012\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00013}00013\ \ \ \ \ sscanf(line,\ \textcolor{stringliteral}{"{}\%s\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu\ \%lu"{}},}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ stats[thread].name,\ \&stats[thread].user,\ \&stats[thread].nice,}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \&stats[thread].system,\ \&stats[thread].idle,\ \&stats[thread].iowait,}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \&stats[thread].irq,\ \&stats[thread].softirq,\ \&stats[thread].steal,}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \&stats[thread].guest,\ \&stats[thread].guest\_nice);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00018}00018\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00019}00019\ \ \ fclose(file);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00020}00020\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00021}00021\ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00023}00023\ \textcolor{keywordtype}{void}\ reader\_test(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00024}00024\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ stats;}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00025}00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,1)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00026}00026\ \ \ \ \ assert(strncmp(stats.name,\ \textcolor{stringliteral}{"{}cpu"{}},\ 3)\ ==\ 0);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00027}00027\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00030}00030\ \textcolor{keywordtype}{void}\ *reader(\textcolor{keywordtype}{void}\ *arg)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00031}00031\ \ \ (void)arg;}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00032}00032\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00033}00033\ \ \ \ \ notify\_watchdog(Reader);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00034}00034\ \ \ \ \ sem\_wait(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00035}00035\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(get\_item\_from\_data\_buffer(),\ g\_nproc)\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00038}00038\ \ \ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00039}00039\ \ \ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00040}00040\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00042}00042\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00043}00043\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00044}00044\ \ \ \ \ sem\_post(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00045}00045\ \ \ \ \ usleep(READ\_DELAY);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00046}00046\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00047}00047\ \}}
+
+\end{DoxyCode}
