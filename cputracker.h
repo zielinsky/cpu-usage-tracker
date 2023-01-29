@@ -15,6 +15,11 @@
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 
+#define TIMEOUT 2
+#define THREADS 3
+
+enum State {Reader = 0, Printer = 1, Analyzer = 2};
+
 struct proc_stat {
   char name[256];
   unsigned long user, // Time spent with normal processing in user mode.
@@ -33,7 +38,6 @@ struct proc_stat {
                   // operating systems under the control of the Linux kernel).
 };
 
-extern volatile sig_atomic_t done;
 
 extern int g_nproc;
 extern pthread_mutex_t g_dataBufferMutex;
@@ -46,4 +50,5 @@ extern sem_t g_printLeftSpaceSemaphore;
 
 unsigned long *get_item_from_print_buffer(void);
 struct proc_stat *get_item_from_data_buffer(void);
+void notify_watchdog(int id);
 #endif

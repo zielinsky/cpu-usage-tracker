@@ -8,3 +8,5 @@ cputracker.o
 cputracker
 analyzer.o
 printer.o
+out
+.gdb_history

@@ -3,6 +3,7 @@
 #include "printer.h"
 #include "reader.h"
 
+
 int g_nproc = 0;
 static struct proc_stat *g_dataBuffer[BUFFER_SIZE];
 pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -18,7 +19,12 @@ static pthread_t readerThreadId;
 static pthread_t analyzerThreadId;
 static pthread_t printerThreadId;
 
-void handler(int signum) {
+
+static int working[THREADS];
+static pthread_mutex_t watchdogMutex = PTHREAD_MUTEX_INITIALIZER;
+
+static void handler(int signum) {
+  (void)signum;
   pthread_cancel(readerThreadId);
   pthread_cancel(printerThreadId);
   pthread_cancel(analyzerThreadId);
@@ -48,7 +54,34 @@ unsigned long *get_item_from_print_buffer(void) {
   return g_printBuffer[index];
 }
 
+void notify_watchdog(int id){
+  pthread_mutex_lock(&watchdogMutex);
+  working[id] = 1;
+  pthread_mutex_unlock(&watchdogMutex);
+}
+
+static void watchdog(void) {
+  while (1) {
+    sleep(TIMEOUT);
+    pthread_mutex_lock(&watchdogMutex);
+    for (int i = 0; i < THREADS; i++) {
+      if (working[i] == 0) {
+        pthread_mutex_unlock(&watchdogMutex);
+        perror("Error: Thread not responding... Terminating\n");
+        handler(-1);
+        return;
+      }
+      working[i] = 0;
+    }
+    pthread_mutex_unlock(&watchdogMutex);
+  }
+}
+
+
 int main(void) {
+  struct sigaction action;
+  memset(&action, 0, sizeof(struct sigaction));
+
   if (get_nproc(&g_nproc) == -1) {
     exit(EXIT_FAILURE);
   }
@@ -76,10 +109,10 @@ int main(void) {
   pthread_create(&analyzerThreadId, NULL, analyzer, NULL);
   pthread_create(&printerThreadId, NULL, printer, NULL);
 
-  struct sigaction action;
-  memset(&action, 0, sizeof(struct sigaction));
   action.sa_handler = handler;
   sigaction(SIGTERM, &action, NULL);
+
+  watchdog();
 
   pthread_join(readerThreadId, NULL);
   pthread_join(analyzerThreadId, NULL);
@@ -92,6 +125,8 @@ int main(void) {
   pthread_mutex_destroy(&g_printBufferMutex);
   sem_destroy(&g_printFilledSpaceSemaphore);
   sem_destroy(&g_printLeftSpaceSemaphore);
+
+  pthread_mutex_destroy(&watchdogMutex);
   for (int i = 0; i < BUFFER_SIZE; i++) {
     free(g_dataBuffer[i]);
     free(g_printBuffer[i]);

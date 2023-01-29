@@ -21,23 +21,26 @@ static unsigned long average_cpu_usage(struct proc_stat prev,
 }
 
 void *analyzer(void *arg) {
-  struct proc_stat *prev =
-      malloc((unsigned long)g_nproc * sizeof(struct proc_stat));
-  if (prev == NULL) {
+  struct proc_stat *prev;
+  unsigned long *avg;
+  unsigned long *bufforAvg;
+  struct proc_stat *stats;
+  
+  (void)arg;
+  
+  if ((prev = malloc((unsigned long)g_nproc * sizeof(struct proc_stat))) == NULL) {
     return NULL;
   }
-  unsigned long *avg = malloc((unsigned long)g_nproc * sizeof(unsigned long));
-  if (avg == NULL) {
+  if ((avg = malloc((unsigned long)g_nproc * sizeof(unsigned long))) == NULL) {
     free(prev);
     return NULL;
   }
-  unsigned long *bufforAvg;
-  struct proc_stat *stats = NULL;
-  pthread_cleanup_push(free, prev);
-  pthread_cleanup_push(free, avg);
+  pthread_cleanup_push(free, prev)
+  pthread_cleanup_push(free, avg)
   while (1) {
-    sem_wait(&g_dataFilledSpaceSemaphore);
+    notify_watchdog(Analyzer);
 
+    sem_wait(&g_dataFilledSpaceSemaphore);
     pthread_mutex_lock(&g_dataBufferMutex);
 
     stats = get_item_from_data_buffer();
@@ -47,23 +50,19 @@ void *analyzer(void *arg) {
     }
 
     pthread_mutex_unlock(&g_dataBufferMutex);
-
     sem_post(&g_dataLeftSpaceSemaphore);
 
     //
 
     sem_wait(&g_printLeftSpaceSemaphore);
-
     pthread_mutex_lock(&g_printBufferMutex);
 
     bufforAvg = get_item_from_print_buffer();
     memcpy(bufforAvg, avg, (unsigned long)g_nproc * sizeof(unsigned long));
 
     pthread_mutex_unlock(&g_printBufferMutex);
-
     sem_post(&g_printFilledSpaceSemaphore);
   }
   pthread_cleanup_pop(1);
   pthread_cleanup_pop(1);
-  return arg;
 }
