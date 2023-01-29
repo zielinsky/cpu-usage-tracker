@@ -1,5 +1,4 @@
 #include "analyzer.h"
-#include "cputracker.h"
 
 static unsigned long average_cpu_usage(struct proc_stat prev,
                                        struct proc_stat current) {

@@ -15,3 +15,8 @@ cputracker.o: cputracker.c reader.h cputracker.h
 
 format:
 	clang-format --style=file -i *.c *.h
+
+clean:
+	rm -f *.o
+	
+.PHONY: clean

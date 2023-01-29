@@ -67,7 +67,7 @@ static void watchdog(void) {
     for (int i = 0; i < THREADS; i++) {
       if (working[i] == 0) {
         pthread_mutex_unlock(&watchdogMutex);
-        perror("Error: Thread not responding... Terminating\n");
+        printf("Error: Thread not responding... Terminating\n");
         handler(-1);
         return;
       }
@@ -77,6 +77,12 @@ static void watchdog(void) {
   }
 }
 
+void main_test(void){
+  int nproc;
+  if (get_nproc(&nproc) == 0) {
+    assert(nproc >= 1);
+  }
+}
 
 int main(void) {
   struct sigaction action;

@@ -51,4 +51,5 @@ extern sem_t g_printLeftSpaceSemaphore;
 unsigned long *get_item_from_print_buffer(void);
 struct proc_stat *get_item_from_data_buffer(void);
 void notify_watchdog(int id);
+void main_test(void);
 #endif

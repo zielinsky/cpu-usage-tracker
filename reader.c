@@ -1,10 +1,9 @@
 #include "reader.h"
-#include "cputracker.h"
 
-static int get_proc_stats(struct proc_stat *stats) {
+static int get_proc_stats(struct proc_stat *stats, int threads) {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
-  for (int thread = 0; thread < g_nproc; thread++) {
+  for (int thread = 0; thread < threads; thread++) {
     if (fgets(line, sizeof(line), file) == NULL ||
         strncmp(line, "cpu", 3) != 0) {
       fclose(file);
@@ -20,6 +19,13 @@ static int get_proc_stats(struct proc_stat *stats) {
   return 0;
 }
 
+void reader_test(void){
+  struct proc_stat stats;
+  if (get_proc_stats(&stats,1) == 0) {
+    assert(strncmp(stats.name, "cpu", 3) == 0);
+  }
+}
+
 void *reader(void *arg) {
   (void)arg;
   while (1) {
@@ -27,7 +33,7 @@ void *reader(void *arg) {
     sem_wait(&g_dataLeftSpaceSemaphore);
     pthread_mutex_lock(&g_dataBufferMutex);
 
-    if (get_proc_stats(get_item_from_data_buffer()) == -1) {
+    if (get_proc_stats(get_item_from_data_buffer(), g_nproc) == -1) {
       pthread_mutex_unlock(&g_dataBufferMutex);
       sem_post(&g_dataLeftSpaceSemaphore);
       continue;
