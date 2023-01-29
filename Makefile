@@ -1,5 +1,7 @@
 CC = gcc -g
-CFLAGS = -O3 -Wall -Werror
+CFLAGS = -O3 -Wall -Werror -pthread
+# CC = clang
+# CFLAGS = -Weverything -pthread
 
 OBJS = reader.o cputracker.o analyzer.o printer.o
 

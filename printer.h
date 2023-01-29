@@ -2,5 +2,5 @@
 #define PRINTER_H
 #include "cputracker.h"
 
-void *printer();
+void *printer(void);
 #endif

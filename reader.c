@@ -1,12 +1,11 @@
 #include "reader.h"
 
-int get_proc_stats(struct proc_stat *stats) {
+static int get_proc_stats(struct proc_stat *stats) {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
   for (int thread = 0; thread < g_nproc; thread++) {
-    fgets(line, sizeof(line), file);
-    if (strncmp(line, "cpu", 3) != 0) {
-      perror("Reading thread info failed");
+    if (fgets(line, sizeof(line), file) == NULL ||
+        strncmp(line, "cpu", 3) != 0) {
       fclose(file);
       return -1;
     }
@@ -21,7 +20,7 @@ int get_proc_stats(struct proc_stat *stats) {
   return 0;
 }
 
-void *reader() {
+void *reader(void) {
   struct proc_stat *stats = NULL;
   while (1) {
 

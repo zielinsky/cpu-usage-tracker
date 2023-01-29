@@ -33,19 +33,17 @@ struct proc_stat {
                   // operating systems under the control of the Linux kernel).
 };
 
+extern volatile sig_atomic_t done;
+
 extern int g_nproc;
-extern struct proc_stat *g_dataBuffer[];
 extern pthread_mutex_t g_dataBufferMutex;
 extern sem_t g_dataFilledSpaceSemaphore;
 extern sem_t g_dataLeftSpaceSemaphore;
 
-extern unsigned long *g_printBuffer[BUFFER_SIZE];
 extern pthread_mutex_t g_printBufferMutex;
 extern sem_t g_printFilledSpaceSemaphore;
 extern sem_t g_printLeftSpaceSemaphore;
 
-int get_nproc(int *nproc);
-int get_semaphore_value(sem_t *sem);
-unsigned long *get_item_from_print_buffer();
-struct proc_stat *get_item_from_data_buffer();
+unsigned long *get_item_from_print_buffer(void);
+struct proc_stat *get_item_from_data_buffer(void);
 #endif

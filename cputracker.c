@@ -3,54 +3,56 @@
 #include "printer.h"
 #include "reader.h"
 
+volatile sig_atomic_t done = 0;
+
 int g_nproc = 0;
-struct proc_stat *g_dataBuffer[BUFFER_SIZE];
+static struct proc_stat *g_dataBuffer[BUFFER_SIZE];
 pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
 sem_t g_dataFilledSpaceSemaphore;
 sem_t g_dataLeftSpaceSemaphore;
 
-unsigned long *g_printBuffer[BUFFER_SIZE];
+static unsigned long *g_printBuffer[BUFFER_SIZE];
 pthread_mutex_t g_printBufferMutex = PTHREAD_MUTEX_INITIALIZER;
 sem_t g_printFilledSpaceSemaphore;
 sem_t g_printLeftSpaceSemaphore;
 
-pthread_t readerThreadId;
-pthread_t analyzerThreadId;
-pthread_t printerThreadId;
+static pthread_t readerThreadId;
+static pthread_t analyzerThreadId;
+static pthread_t printerThreadId;
 
-int get_nproc(int *nproc) {
-  *nproc = sysconf(_SC_NPROCESSORS_ONLN);
+static int get_nproc(int *nproc) {
+  *nproc = (int)sysconf(_SC_NPROCESSORS_ONLN);
   if (*nproc == -1) {
     return -1;
   }
   return 0;
 }
 
-int get_semaphore_value(sem_t *sem) {
+static int get_semaphore_value(sem_t *sem) {
   int sval;
   sem_getvalue(sem, &sval);
   return sval;
 }
 
-struct proc_stat *get_item_from_data_buffer() {
+struct proc_stat *get_item_from_data_buffer(void) {
   int index = get_semaphore_value(&g_dataFilledSpaceSemaphore);
   return g_dataBuffer[index];
 }
 
-unsigned long *get_item_from_print_buffer() {
+unsigned long *get_item_from_print_buffer(void) {
   int index = get_semaphore_value(&g_printFilledSpaceSemaphore);
   return g_printBuffer[index];
 }
 
-int main() {
+int main(void) {
   if (get_nproc(&g_nproc) == -1) {
     exit(EXIT_FAILURE);
   }
   g_nproc++;
 
   for (int i = 0; i < BUFFER_SIZE; i++) {
-    g_dataBuffer[i] = malloc(g_nproc * sizeof(struct proc_stat));
-    g_printBuffer[i] = malloc(g_nproc * sizeof(unsigned long));
+    g_dataBuffer[i] = malloc((unsigned long)g_nproc * sizeof(struct proc_stat));
+    g_printBuffer[i] = malloc((unsigned long)g_nproc * sizeof(unsigned long));
     if (g_dataBuffer[i] == NULL || g_printBuffer[i] == NULL) {
       exit(EXIT_FAILURE);
     }

@@ -4,7 +4,5 @@
 
 #define READ_DELAY 50000
 
-int get_proc_stats(struct proc_stat *stats);
-void *reader();
-
+void *reader(void);
 #endif
