@@ -85,10 +85,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structproc__stat.html">proc_stat</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8c.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a> (void)</td></tr>
+<tr class="memdesc:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item in data buffer.  <br /></td></tr>
 <tr class="separator:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="memItemLeft" align="right" valign="top">unsigned long *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a> (void)</td></tr>
+<tr class="memdesc:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item in print buffer.  <br /></td></tr>
 <tr class="separator:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac99b6069bf629214ce6258902739d613"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a> (int id)</td></tr>
+<tr class="memdesc:ac99b6069bf629214ce6258902739d613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify the watchdog that thread is alive.  <br /></td></tr>
 <tr class="separator:ac99b6069bf629214ce6258902739d613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1407f3b7f6dc9f7ba1c2049f33cfa14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8c.html#aa1407f3b7f6dc9f7ba1c2049f33cfa14">main_test</a> (void)</td></tr>
 <tr class="separator:aa1407f3b7f6dc9f7ba1c2049f33cfa14"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,11 +132,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00048">48</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>                                                  {</div>
-<div class="line"><span class="lineno">   49</span>  <span class="keywordtype">int</span> index = get_semaphore_value(&amp;g_dataFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   50</span>  <span class="keywordflow">return</span> g_dataBuffer[index];</div>
-<div class="line"><span class="lineno">   51</span>}</div>
+<p>Function getting item in data buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structproc__stat.html" title="Struct for /proc/stats info.">proc_stat</a> struct from data buffer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00069">69</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>                                                  {</div>
+<div class="line"><span class="lineno">   70</span>  <span class="keywordtype">int</span> index = get_semaphore_value(&amp;g_dataFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   71</span>  <span class="keywordflow">return</span> g_dataBuffer[index];</div>
+<div class="line"><span class="lineno">   72</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -153,11 +159,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00053">53</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>                                                {</div>
-<div class="line"><span class="lineno">   54</span>  <span class="keywordtype">int</span> index = get_semaphore_value(&amp;g_printFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   55</span>  <span class="keywordflow">return</span> g_printBuffer[index];</div>
-<div class="line"><span class="lineno">   56</span>}</div>
+<p>Function getting item in print buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structproc__stat.html" title="Struct for /proc/stats info.">proc_stat</a> struct from print buffer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00079">79</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>                                                {</div>
+<div class="line"><span class="lineno">   80</span>  <span class="keywordtype">int</span> index = get_semaphore_value(&amp;g_printFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   81</span>  <span class="keywordflow">return</span> g_printBuffer[index];</div>
+<div class="line"><span class="lineno">   82</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -177,63 +186,63 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00088">88</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   88</span>               {</div>
-<div class="line"><span class="lineno">   89</span>  <span class="keyword">struct </span>sigaction action;</div>
-<div class="line"><span class="lineno">   90</span>  memset(&amp;action, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> sigaction));</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>  <span class="keywordflow">if</span> (get_nproc(&amp;g_nproc) == -1) {</div>
-<div class="line"><span class="lineno">   93</span>    exit(EXIT_FAILURE);</div>
-<div class="line"><span class="lineno">   94</span>  }</div>
-<div class="line"><span class="lineno">   95</span>  g_nproc++;</div>
-<div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; BUFFER_SIZE; i++) {</div>
-<div class="line"><span class="lineno">   98</span>    g_dataBuffer[i] = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structproc__stat.html">proc_stat</a>));</div>
-<div class="line"><span class="lineno">   99</span>    g_printBuffer[i] = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>));</div>
-<div class="line"><span class="lineno">  100</span>    <span class="keywordflow">if</span> (g_dataBuffer[i] == NULL || g_printBuffer[i] == NULL) {</div>
-<div class="line"><span class="lineno">  101</span>      exit(EXIT_FAILURE);</div>
-<div class="line"><span class="lineno">  102</span>    }</div>
-<div class="line"><span class="lineno">  103</span>  }</div>
-<div class="line"><span class="lineno">  104</span> </div>
-<div class="line"><span class="lineno">  105</span>  <span class="keywordflow">if</span> (sem_init(&amp;g_dataFilledSpaceSemaphore, 0, 0) ||</div>
-<div class="line"><span class="lineno">  106</span>      sem_init(&amp;g_dataLeftSpaceSemaphore, 0, BUFFER_SIZE)) {</div>
-<div class="line"><span class="lineno">  107</span>    exit(EXIT_FAILURE);</div>
-<div class="line"><span class="lineno">  108</span>  }</div>
-<div class="line"><span class="lineno">  109</span> </div>
-<div class="line"><span class="lineno">  110</span>  <span class="keywordflow">if</span> (sem_init(&amp;g_printFilledSpaceSemaphore, 0, 0) ||</div>
-<div class="line"><span class="lineno">  111</span>      sem_init(&amp;g_printLeftSpaceSemaphore, 0, BUFFER_SIZE)) {</div>
-<div class="line"><span class="lineno">  112</span>    exit(EXIT_FAILURE);</div>
-<div class="line"><span class="lineno">  113</span>  }</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>  pthread_create(&amp;readerThreadId, NULL, reader, NULL);</div>
-<div class="line"><span class="lineno">  116</span>  pthread_create(&amp;analyzerThreadId, NULL, analyzer, NULL);</div>
-<div class="line"><span class="lineno">  117</span>  pthread_create(&amp;printerThreadId, NULL, printer, NULL);</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>  action.sa_handler = handler;</div>
-<div class="line"><span class="lineno">  120</span>  sigaction(SIGTERM, &amp;action, NULL);</div>
-<div class="line"><span class="lineno">  121</span> </div>
-<div class="line"><span class="lineno">  122</span>  watchdog();</div>
-<div class="line"><span class="lineno">  123</span> </div>
-<div class="line"><span class="lineno">  124</span>  pthread_join(readerThreadId, NULL);</div>
-<div class="line"><span class="lineno">  125</span>  pthread_join(analyzerThreadId, NULL);</div>
-<div class="line"><span class="lineno">  126</span>  pthread_join(printerThreadId, NULL);</div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span>  pthread_mutex_destroy(&amp;g_dataBufferMutex);</div>
-<div class="line"><span class="lineno">  129</span>  sem_destroy(&amp;g_dataFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">  130</span>  sem_destroy(&amp;g_dataLeftSpaceSemaphore);</div>
-<div class="line"><span class="lineno">  131</span> </div>
-<div class="line"><span class="lineno">  132</span>  pthread_mutex_destroy(&amp;g_printBufferMutex);</div>
-<div class="line"><span class="lineno">  133</span>  sem_destroy(&amp;g_printFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">  134</span>  sem_destroy(&amp;g_printLeftSpaceSemaphore);</div>
-<div class="line"><span class="lineno">  135</span> </div>
-<div class="line"><span class="lineno">  136</span>  pthread_mutex_destroy(&amp;watchdogMutex);</div>
-<div class="line"><span class="lineno">  137</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; BUFFER_SIZE; i++) {</div>
-<div class="line"><span class="lineno">  138</span>    free(g_dataBuffer[i]);</div>
-<div class="line"><span class="lineno">  139</span>    free(g_printBuffer[i]);</div>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00125">125</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  125</span>               {</div>
+<div class="line"><span class="lineno">  126</span>  <span class="keyword">struct </span>sigaction action;</div>
+<div class="line"><span class="lineno">  127</span>  memset(&amp;action, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> sigaction));</div>
+<div class="line"><span class="lineno">  128</span> </div>
+<div class="line"><span class="lineno">  129</span>  <span class="keywordflow">if</span> (get_nproc(&amp;g_nproc) == -1) {</div>
+<div class="line"><span class="lineno">  130</span>    exit(EXIT_FAILURE);</div>
+<div class="line"><span class="lineno">  131</span>  }</div>
+<div class="line"><span class="lineno">  132</span>  g_nproc++;</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; BUFFER_SIZE; i++) {</div>
+<div class="line"><span class="lineno">  135</span>    g_dataBuffer[i] = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structproc__stat.html">proc_stat</a>));</div>
+<div class="line"><span class="lineno">  136</span>    g_printBuffer[i] = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>));</div>
+<div class="line"><span class="lineno">  137</span>    <span class="keywordflow">if</span> (g_dataBuffer[i] == NULL || g_printBuffer[i] == NULL) {</div>
+<div class="line"><span class="lineno">  138</span>      exit(EXIT_FAILURE);</div>
+<div class="line"><span class="lineno">  139</span>    }</div>
 <div class="line"><span class="lineno">  140</span>  }</div>
-<div class="line"><span class="lineno">  141</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  142</span>}</div>
-<div class="ttc" id="astructproc__stat_html"><div class="ttname"><a href="structproc__stat.html">proc_stat</a></div><div class="ttdoc">Use brief, otherwise the index won't have a brief explanation.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8h_source.html#l00028">cputracker.h:28</a></div></div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>  <span class="keywordflow">if</span> (sem_init(&amp;g_dataFilledSpaceSemaphore, 0, 0) ||</div>
+<div class="line"><span class="lineno">  143</span>      sem_init(&amp;g_dataLeftSpaceSemaphore, 0, BUFFER_SIZE)) {</div>
+<div class="line"><span class="lineno">  144</span>    exit(EXIT_FAILURE);</div>
+<div class="line"><span class="lineno">  145</span>  }</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>  <span class="keywordflow">if</span> (sem_init(&amp;g_printFilledSpaceSemaphore, 0, 0) ||</div>
+<div class="line"><span class="lineno">  148</span>      sem_init(&amp;g_printLeftSpaceSemaphore, 0, BUFFER_SIZE)) {</div>
+<div class="line"><span class="lineno">  149</span>    exit(EXIT_FAILURE);</div>
+<div class="line"><span class="lineno">  150</span>  }</div>
+<div class="line"><span class="lineno">  151</span> </div>
+<div class="line"><span class="lineno">  152</span>  pthread_create(&amp;readerThreadId, NULL, reader, NULL);</div>
+<div class="line"><span class="lineno">  153</span>  pthread_create(&amp;analyzerThreadId, NULL, analyzer, NULL);</div>
+<div class="line"><span class="lineno">  154</span>  pthread_create(&amp;printerThreadId, NULL, printer, NULL);</div>
+<div class="line"><span class="lineno">  155</span> </div>
+<div class="line"><span class="lineno">  156</span>  action.sa_handler = handler;</div>
+<div class="line"><span class="lineno">  157</span>  sigaction(SIGTERM, &amp;action, NULL);</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>  watchdog();</div>
+<div class="line"><span class="lineno">  160</span> </div>
+<div class="line"><span class="lineno">  161</span>  pthread_join(readerThreadId, NULL);</div>
+<div class="line"><span class="lineno">  162</span>  pthread_join(analyzerThreadId, NULL);</div>
+<div class="line"><span class="lineno">  163</span>  pthread_join(printerThreadId, NULL);</div>
+<div class="line"><span class="lineno">  164</span> </div>
+<div class="line"><span class="lineno">  165</span>  pthread_mutex_destroy(&amp;g_dataBufferMutex);</div>
+<div class="line"><span class="lineno">  166</span>  sem_destroy(&amp;g_dataFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">  167</span>  sem_destroy(&amp;g_dataLeftSpaceSemaphore);</div>
+<div class="line"><span class="lineno">  168</span> </div>
+<div class="line"><span class="lineno">  169</span>  pthread_mutex_destroy(&amp;g_printBufferMutex);</div>
+<div class="line"><span class="lineno">  170</span>  sem_destroy(&amp;g_printFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">  171</span>  sem_destroy(&amp;g_printLeftSpaceSemaphore);</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span>  pthread_mutex_destroy(&amp;watchdogMutex);</div>
+<div class="line"><span class="lineno">  174</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; BUFFER_SIZE; i++) {</div>
+<div class="line"><span class="lineno">  175</span>    free(g_dataBuffer[i]);</div>
+<div class="line"><span class="lineno">  176</span>    free(g_printBuffer[i]);</div>
+<div class="line"><span class="lineno">  177</span>  }</div>
+<div class="line"><span class="lineno">  178</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  179</span>}</div>
+<div class="ttc" id="astructproc__stat_html"><div class="ttname"><a href="structproc__stat.html">proc_stat</a></div><div class="ttdoc">Struct for /proc/stats info.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8h_source.html#l00030">cputracker.h:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -253,13 +262,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00081">81</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   81</span>                    {</div>
-<div class="line"><span class="lineno">   82</span>  <span class="keywordtype">int</span> nproc;</div>
-<div class="line"><span class="lineno">   83</span>  <span class="keywordflow">if</span> (get_nproc(&amp;nproc) == 0) {</div>
-<div class="line"><span class="lineno">   84</span>    assert(nproc &gt;= 1);</div>
-<div class="line"><span class="lineno">   85</span>  }</div>
-<div class="line"><span class="lineno">   86</span>}</div>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00118">118</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>                     {</div>
+<div class="line"><span class="lineno">  119</span>  <span class="keywordtype">int</span> nproc;</div>
+<div class="line"><span class="lineno">  120</span>  <span class="keywordflow">if</span> (get_nproc(&amp;nproc) == 0) {</div>
+<div class="line"><span class="lineno">  121</span>    assert(nproc &gt;= 1);</div>
+<div class="line"><span class="lineno">  122</span>  }</div>
+<div class="line"><span class="lineno">  123</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -279,12 +288,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00058">58</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   58</span>                            {</div>
-<div class="line"><span class="lineno">   59</span>  pthread_mutex_lock(&amp;watchdogMutex);</div>
-<div class="line"><span class="lineno">   60</span>  working[id] = 1;</div>
-<div class="line"><span class="lineno">   61</span>  pthread_mutex_unlock(&amp;watchdogMutex);</div>
-<div class="line"><span class="lineno">   62</span>}</div>
+<p>Notify the watchdog that thread is alive. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Thread ID </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00089">89</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>                             {</div>
+<div class="line"><span class="lineno">   90</span>  pthread_mutex_lock(&amp;watchdogMutex);</div>
+<div class="line"><span class="lineno">   91</span>  working[id] = 1;</div>
+<div class="line"><span class="lineno">   92</span>  pthread_mutex_unlock(&amp;watchdogMutex);</div>
+<div class="line"><span class="lineno">   93</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -301,7 +318,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00010">10</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00009">9</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -317,7 +334,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00011">11</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00010">10</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -333,7 +350,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00012">12</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00011">11</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -349,7 +366,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00008">8</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00007">7</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -365,7 +382,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00015">15</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00014">14</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -381,7 +398,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00016">16</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00015">15</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>
@@ -397,7 +414,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00017">17</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00016">16</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
 
 </div>
 </div>

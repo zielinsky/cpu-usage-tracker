@@ -23,9 +23,9 @@
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00020}00020\ \ \ \textcolor{keywordflow}{return}\ 0;}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00021}00021\ \}}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{reader_8c_source_l00023}00023\ \textcolor{keywordtype}{void}\ reader\_test(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00023}00023\ \textcolor{keywordtype}{void}\ reader\_test(\textcolor{keywordtype}{void})\ \{}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00024}00024\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ stats;}
-\DoxyCodeLine{\Hypertarget{reader_8c_source_l00025}00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,1)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00025}00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,\ 1)\ ==\ 0)\ \{}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00026}00026\ \ \ \ \ assert(strncmp(stats.name,\ \textcolor{stringliteral}{"{}cpu"{}},\ 3)\ ==\ 0);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00027}00027\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00028}00028\ \}}
@@ -33,16 +33,16 @@
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00030}00030\ \textcolor{keywordtype}{void}\ *reader(\textcolor{keywordtype}{void}\ *arg)\ \{}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00031}00031\ \ \ (void)arg;}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00032}00032\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{\Hypertarget{reader_8c_source_l00033}00033\ \ \ \ \ notify\_watchdog(Reader);}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(Reader);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00034}00034\ \ \ \ \ sem\_wait(\&g\_dataLeftSpaceSemaphore);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00035}00035\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00036}00036\ }
-\DoxyCodeLine{\Hypertarget{reader_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(get\_item\_from\_data\_buffer(),\ g\_nproc)\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\mbox{\hyperlink{cputracker_8c_a6d7b4993bb9144e4cab9f9c7420c996a}{get\_item\_from\_data\_buffer}}(),\ g\_nproc)\ ==\ -\/1)\ \{}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00038}00038\ \ \ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00039}00039\ \ \ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00040}00040\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00041}00041\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{reader_8c_source_l00042}00042\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{reader_8c_source_l00042}00042\ }
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00043}00043\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00044}00044\ \ \ \ \ sem\_post(\&g\_dataFilledSpaceSemaphore);}
 \DoxyCodeLine{\Hypertarget{reader_8c_source_l00045}00045\ \ \ \ \ usleep(READ\_DELAY);}

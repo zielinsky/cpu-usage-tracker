@@ -30,19 +30,18 @@ void *analyzer(void *arg) {
   unsigned long *avg;
   unsigned long *bufforAvg;
   struct proc_stat *stats;
-  
+
   (void)arg;
-  
-  if ((prev = malloc((unsigned long)g_nproc * sizeof(struct proc_stat))) == NULL) {
+
+  if ((prev = malloc((unsigned long)g_nproc * sizeof(struct proc_stat))) ==
+      NULL) {
     return NULL;
   }
   if ((avg = malloc((unsigned long)g_nproc * sizeof(unsigned long))) == NULL) {
     free(prev);
     return NULL;
   }
-  pthread_cleanup_push(free, prev)
-  pthread_cleanup_push(free, avg)
-  while (1) {
+  pthread_cleanup_push(free, prev) pthread_cleanup_push(free, avg) while (1) {
     notify_watchdog(Analyzer);
 
     sem_wait(&g_dataFilledSpaceSemaphore);

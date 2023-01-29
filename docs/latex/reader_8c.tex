@@ -26,16 +26,16 @@ Definition at line \mbox{\hyperlink{reader_8c_source_l00030}{30}} of file \mbox{
 \DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00031\ \ \ (void)arg;}
 \DoxyCodeLine{00032\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{00033\ \ \ \ \ notify\_watchdog(Reader);}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(Reader);}
 \DoxyCodeLine{00034\ \ \ \ \ sem\_wait(\&g\_dataLeftSpaceSemaphore);}
 \DoxyCodeLine{00035\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(get\_item\_from\_data\_buffer(),\ g\_nproc)\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\mbox{\hyperlink{cputracker_8c_a6d7b4993bb9144e4cab9f9c7420c996a}{get\_item\_from\_data\_buffer}}(),\ g\_nproc)\ ==\ -\/1)\ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
 \DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{00041\ \ \ \ \ \}}
-\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00042\ }
 \DoxyCodeLine{00043\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
 \DoxyCodeLine{00044\ \ \ \ \ sem\_post(\&g\_dataFilledSpaceSemaphore);}
 \DoxyCodeLine{00045\ \ \ \ \ usleep(READ\_DELAY);}
@@ -55,9 +55,9 @@ Definition at line \mbox{\hyperlink{reader_8c_source_l00023}{23}} of file \mbox{
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00024\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ stats;}
-\DoxyCodeLine{00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,1)\ ==\ 0)\ \{}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordflow}{if}\ (get\_proc\_stats(\&stats,\ 1)\ ==\ 0)\ \{}
 \DoxyCodeLine{00026\ \ \ \ \ assert(strncmp(stats.name,\ \textcolor{stringliteral}{"{}cpu"{}},\ 3)\ ==\ 0);}
 \DoxyCodeLine{00027\ \ \ \}}
 \DoxyCodeLine{00028\ \}}

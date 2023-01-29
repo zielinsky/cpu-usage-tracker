@@ -105,23 +105,25 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">    5</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> *avg;</div>
 <div class="line"><span class="lineno">    6</span>  (void)arg;</div>
 <div class="line"><span class="lineno">    7</span>  <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><span class="lineno">    8</span>    notify_watchdog(Printer);</div>
+<div class="line"><span class="lineno">    8</span>    <a class="code hl_function" href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a>(Printer);</div>
 <div class="line"><span class="lineno">    9</span>    sem_wait(&amp;g_printFilledSpaceSemaphore);</div>
 <div class="line"><span class="lineno">   10</span>    pthread_mutex_lock(&amp;g_printBufferMutex);</div>
 <div class="line"><span class="lineno">   11</span> </div>
 <div class="line"><span class="lineno">   12</span>    system(<span class="stringliteral">&quot;clear&quot;</span>);</div>
-<div class="line"><span class="lineno">   13</span>    avg = get_item_from_print_buffer();</div>
+<div class="line"><span class="lineno">   13</span>    avg = <a class="code hl_function" href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a>();</div>
 <div class="line"><span class="lineno">   14</span>    printf(<span class="stringliteral">&quot;CORE\t%%\n&quot;</span>);</div>
 <div class="line"><span class="lineno">   15</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g_nproc; i++) {</div>
 <div class="line"><span class="lineno">   16</span>      printf(<span class="stringliteral">&quot;[%2d]: \033[38;2;%lu;%lu;0m%3lu\033[0m\n&quot;</span>, i, avg[i] * 5 / 2,</div>
 <div class="line"><span class="lineno">   17</span>             255 - avg[i] * 5 / 2, avg[i]);</div>
 <div class="line"><span class="lineno">   18</span>    }</div>
-<div class="line"><span class="lineno">   19</span>    </div>
+<div class="line"><span class="lineno">   19</span> </div>
 <div class="line"><span class="lineno">   20</span>    pthread_mutex_unlock(&amp;g_printBufferMutex);</div>
 <div class="line"><span class="lineno">   21</span>    sem_post(&amp;g_printLeftSpaceSemaphore);</div>
 <div class="line"><span class="lineno">   22</span>    sleep(1);</div>
 <div class="line"><span class="lineno">   23</span>  }</div>
 <div class="line"><span class="lineno">   24</span>}</div>
+<div class="ttc" id="acputracker_8c_html_a2b8f2341417ff6536dcfd85113bd3a5d"><div class="ttname"><a href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a></div><div class="ttdeci">unsigned long * get_item_from_print_buffer(void)</div><div class="ttdoc">Function getting item in print buffer.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00079">cputracker.c:79</a></div></div>
+<div class="ttc" id="acputracker_8c_html_ac99b6069bf629214ce6258902739d613"><div class="ttname"><a href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a></div><div class="ttdeci">void notify_watchdog(int id)</div><div class="ttdoc">Notify the watchdog that thread is alive.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00089">cputracker.c:89</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

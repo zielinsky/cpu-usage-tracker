@@ -22,35 +22,35 @@
 \DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00019}00019\ \textcolor{preprocessor}{\#define\ TIMEOUT\ 2}}
 \DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ THREADS\ 3}}
 \DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00022}00022\ \textcolor{keyword}{enum}\ State\ \{Reader\ =\ 0,\ Printer\ =\ 1,\ Analyzer\ =\ 2\};}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00028}\mbox{\hyperlink{structproc__stat}{00028}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ \{}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00029}00029\ \ \ \textcolor{keywordtype}{char}\ name[256];}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00030}\mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{00030}}\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{user}},\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00031}\mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{00031}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{nice}},\ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00032}\mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{00032}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{system}},\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00033}\mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{00033}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{idle}},\ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00034}\mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{00034}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{iowait}},\ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00036}\mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{00036}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{irq}},\ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00037}\mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{00037}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{softirq}},\ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00038}\mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{00038}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{steal}},\ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00040}\mbox{\hyperlink{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}{00040}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}{guest}},\ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00042}\mbox{\hyperlink{structproc__stat_aa54659ed14b3f801e47e7200164b5704}{00042}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_aa54659ed14b3f801e47e7200164b5704}{guest\_nice}};\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00044}00044\ \};}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00045}00045\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00047}00047\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ g\_nproc;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00048}00048\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ g\_dataBufferMutex;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00049}00049\ \textcolor{keyword}{extern}\ sem\_t\ g\_dataFilledSpaceSemaphore;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00050}00050\ \textcolor{keyword}{extern}\ sem\_t\ g\_dataLeftSpaceSemaphore;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00052}00052\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ g\_printBufferMutex;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00053}00053\ \textcolor{keyword}{extern}\ sem\_t\ g\_printFilledSpaceSemaphore;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00054}00054\ \textcolor{keyword}{extern}\ sem\_t\ g\_printLeftSpaceSemaphore;}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00055}00055\ }
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00056}00056\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *get\_item\_from\_print\_buffer(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00057}00057\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *get\_item\_from\_data\_buffer(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00058}00058\ \textcolor{keywordtype}{void}\ notify\_watchdog(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00059}00059\ \textcolor{keywordtype}{void}\ main\_test(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00060}00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00025}\mbox{\hyperlink{cputracker_8h_a3a740257b1966921d2be7718d2e37e50}{00025}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{cputracker_8h_a3a740257b1966921d2be7718d2e37e50}{Ids}}\ \{\ Reader\ =\ 0,\ Printer\ =\ 1,\ Analyzer\ =\ 2\ \};}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00030}\mbox{\hyperlink{structproc__stat}{00030}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ \{}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00031}00031\ \ \ \textcolor{keywordtype}{char}\ name[256];}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00032}\mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{00032}}\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{structproc__stat_aa4600f7feea835a377931e3a4de0ce47}{user}},\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00033}\mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{00033}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ab2b0ce88f7db8e6fde5d0ada71af66df}{nice}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00034}\mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{00034}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ad0d5ea5c5ac2fe254d8b1953f9047180}{system}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00035}\mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{00035}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a8cf13a33bf3f6df0fea6f11c069835d2}{idle}},\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00036}\mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{00036}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a196b27e73492d632d584141cccb5d379}{iowait}},\ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00038}\mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{00038}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a51e94dcd31151948891922d3afb65e42}{irq}},\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00039}\mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{00039}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_ab25610b61e24c58f20f46becff3c32d7}{softirq}},\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00040}\mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{00040}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_aba4a4ef24873fded0b934c4ad02c8fda}{steal}},\ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00042}\mbox{\hyperlink{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}{00042}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_a3bc6b17a52a1e67ff43913b6402cfcc4}{guest}},\ \ \ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00044}\mbox{\hyperlink{structproc__stat_aa54659ed14b3f801e47e7200164b5704}{00044}}\ \ \ \ \ \ \ \mbox{\hyperlink{structproc__stat_aa54659ed14b3f801e47e7200164b5704}{guest\_nice}};\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00046}00046\ \};}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00048}00048\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ g\_nproc;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00049}00049\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ g\_dataBufferMutex;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00050}00050\ \textcolor{keyword}{extern}\ sem\_t\ g\_dataFilledSpaceSemaphore;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00051}00051\ \textcolor{keyword}{extern}\ sem\_t\ g\_dataLeftSpaceSemaphore;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00053}00053\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ g\_printBufferMutex;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00054}00054\ \textcolor{keyword}{extern}\ sem\_t\ g\_printFilledSpaceSemaphore;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00055}00055\ \textcolor{keyword}{extern}\ sem\_t\ g\_printLeftSpaceSemaphore;}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00057}00057\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *\mbox{\hyperlink{cputracker_8h_a2b8f2341417ff6536dcfd85113bd3a5d}{get\_item\_from\_print\_buffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00058}00058\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *\mbox{\hyperlink{cputracker_8h_a6d7b4993bb9144e4cab9f9c7420c996a}{get\_item\_from\_data\_buffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00059}00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{cputracker_8h_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00060}00060\ \textcolor{keywordtype}{void}\ main\_test(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cputracker_8h_source_l00061}00061\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

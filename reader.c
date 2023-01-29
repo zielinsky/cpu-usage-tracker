@@ -20,9 +20,9 @@ static int get_proc_stats(struct proc_stat *stats, int threads) {
   return 0;
 }
 
-void reader_test(void){
+void reader_test(void) {
   struct proc_stat stats;
-  if (get_proc_stats(&stats,1) == 0) {
+  if (get_proc_stats(&stats, 1) == 0) {
     assert(strncmp(stats.name, "cpu", 3) == 0);
   }
 }
@@ -39,7 +39,7 @@ void *reader(void *arg) {
       sem_post(&g_dataLeftSpaceSemaphore);
       continue;
     }
-    
+
     pthread_mutex_unlock(&g_dataBufferMutex);
     sem_post(&g_dataFilledSpaceSemaphore);
     usleep(READ_DELAY);

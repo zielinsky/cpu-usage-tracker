@@ -4,7 +4,6 @@
 #include "printer.h"
 #include "reader.h"
 
-
 int g_nproc = 0;
 static struct proc_stat *g_dataBuffer[BUFFER_SIZE];
 pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -20,10 +19,13 @@ static pthread_t readerThreadId;
 static pthread_t analyzerThreadId;
 static pthread_t printerThreadId;
 
-
 static int working[THREADS];
 static pthread_mutex_t watchdogMutex = PTHREAD_MUTEX_INITIALIZER;
 
+/**
+ * @brief Signal handler
+ * @param signum signal number
+ */
 static void handler(int signum) {
   (void)signum;
   pthread_cancel(readerThreadId);
@@ -31,6 +33,13 @@ static void handler(int signum) {
   pthread_cancel(analyzerThreadId);
 }
 
+/**
+ * @brief Function retrieving the number of threads
+ * 
+ * @param signum signal number
+ *
+ * @return 0 if the number of threads has been retrieved else -1
+ */
 static int get_nproc(int *nproc) {
   *nproc = (int)sysconf(_SC_NPROCESSORS_ONLN);
   if (*nproc == -1) {
@@ -39,28 +48,56 @@ static int get_nproc(int *nproc) {
   return 0;
 }
 
+/**
+ * @brief Function getting the semaphore value
+ * 
+ * @param sem semaphore
+ *
+ * @return sem value
+ */
 static int get_semaphore_value(sem_t *sem) {
   int sval;
   sem_getvalue(sem, &sval);
   return sval;
 }
 
+/**
+ * @brief Function getting item in data buffer
+ * 
+ * @return proc_stat struct from data buffer
+ */
 struct proc_stat *get_item_from_data_buffer(void) {
   int index = get_semaphore_value(&g_dataFilledSpaceSemaphore);
   return g_dataBuffer[index];
 }
 
+/**
+ * @brief Function getting item in print buffer
+ * 
+ * @return proc_stat struct from print buffer
+ */
 unsigned long *get_item_from_print_buffer(void) {
   int index = get_semaphore_value(&g_printFilledSpaceSemaphore);
   return g_printBuffer[index];
 }
 
-void notify_watchdog(int id){
+/**
+ * @brief Notify the watchdog that thread is alive
+ * 
+ * @param id Thread ID
+ */
+void notify_watchdog(int id) {
   pthread_mutex_lock(&watchdogMutex);
   working[id] = 1;
   pthread_mutex_unlock(&watchdogMutex);
 }
 
+/**
+ * @brief Watchdog function.
+ *
+ * This function checks whether the threads are alive.
+ * If a thread does not speak for 2 seconds the watchdog kills the program
+ */
 static void watchdog(void) {
   while (1) {
     sleep(TIMEOUT);
@@ -78,7 +115,10 @@ static void watchdog(void) {
   }
 }
 
-void main_test(void){
+/**
+ * @brief Simple test function with asserts.
+ */
+void main_test(void) {
   int nproc;
   if (get_nproc(&nproc) == 0) {
     assert(nproc >= 1);

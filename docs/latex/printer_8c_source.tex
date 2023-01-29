@@ -8,18 +8,18 @@
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00005}00005\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00006}00006\ \ \ (void)arg;}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00007}00007\ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{\Hypertarget{printer_8c_source_l00008}00008\ \ \ \ \ notify\_watchdog(Printer);}
+\DoxyCodeLine{\Hypertarget{printer_8c_source_l00008}00008\ \ \ \ \ \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(Printer);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00009}00009\ \ \ \ \ sem\_wait(\&g\_printFilledSpaceSemaphore);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00010}00010\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00011}00011\ }
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00012}00012\ \ \ \ \ system(\textcolor{stringliteral}{"{}clear"{}});}
-\DoxyCodeLine{\Hypertarget{printer_8c_source_l00013}00013\ \ \ \ \ avg\ =\ get\_item\_from\_print\_buffer();}
+\DoxyCodeLine{\Hypertarget{printer_8c_source_l00013}00013\ \ \ \ \ avg\ =\ \mbox{\hyperlink{cputracker_8c_a2b8f2341417ff6536dcfd85113bd3a5d}{get\_item\_from\_print\_buffer}}();}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00014}00014\ \ \ \ \ printf(\textcolor{stringliteral}{"{}CORE\(\backslash\)t\%\%\(\backslash\)n"{}});}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00016}00016\ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[\%2d]:\ \(\backslash\)033[38;2;\%lu;\%lu;0m\%3lu\(\backslash\)033[0m\(\backslash\)n"{}},\ i,\ avg[i]\ *\ 5\ /\ 2,}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ 255\ -\/\ avg[i]\ *\ 5\ /\ 2,\ avg[i]);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00018}00018\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{printer_8c_source_l00019}00019\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{printer_8c_source_l00019}00019\ }
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00020}00020\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00021}00021\ \ \ \ \ sem\_post(\&g\_printLeftSpaceSemaphore);}
 \DoxyCodeLine{\Hypertarget{printer_8c_source_l00022}00022\ \ \ \ \ sleep(1);}
