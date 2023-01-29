@@ -18,5 +18,8 @@ format:
 
 clean:
 	rm -f *.o
-	
+
+test:
+	for i in `seq 1 5`; do ./tests.py || exit 1; done
+
 .PHONY: clean
