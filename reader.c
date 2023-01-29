@@ -20,7 +20,7 @@ static int get_proc_stats(struct proc_stat *stats) {
   return 0;
 }
 
-void *reader(void) {
+void *reader(void *arg) {
   struct proc_stat *stats = NULL;
   while (1) {
 
@@ -32,6 +32,7 @@ void *reader(void) {
 
     if (get_proc_stats(stats) == -1) {
       pthread_mutex_unlock(&g_dataBufferMutex);
+      sem_post(&g_dataLeftSpaceSemaphore);
       continue;
     }
 
@@ -40,4 +41,5 @@ void *reader(void) {
     sem_post(&g_dataFilledSpaceSemaphore);
     usleep(READ_DELAY);
   }
+  return arg;
 }

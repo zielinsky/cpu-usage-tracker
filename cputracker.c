@@ -3,8 +3,6 @@
 #include "printer.h"
 #include "reader.h"
 
-volatile sig_atomic_t done = 0;
-
 int g_nproc = 0;
 static struct proc_stat *g_dataBuffer[BUFFER_SIZE];
 pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -19,6 +17,12 @@ sem_t g_printLeftSpaceSemaphore;
 static pthread_t readerThreadId;
 static pthread_t analyzerThreadId;
 static pthread_t printerThreadId;
+
+void handler(int signum) {
+  pthread_cancel(readerThreadId);
+  pthread_cancel(printerThreadId);
+  pthread_cancel(analyzerThreadId);
+}
 
 static int get_nproc(int *nproc) {
   *nproc = (int)sysconf(_SC_NPROCESSORS_ONLN);
@@ -71,6 +75,11 @@ int main(void) {
   pthread_create(&readerThreadId, NULL, reader, NULL);
   pthread_create(&analyzerThreadId, NULL, analyzer, NULL);
   pthread_create(&printerThreadId, NULL, printer, NULL);
+
+  struct sigaction action;
+  memset(&action, 0, sizeof(struct sigaction));
+  action.sa_handler = handler;
+  sigaction(SIGTERM, &action, NULL);
 
   pthread_join(readerThreadId, NULL);
   pthread_join(analyzerThreadId, NULL);

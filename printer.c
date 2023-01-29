@@ -1,6 +1,6 @@
 #include "printer.h"
 
-void *printer(void) {
+void *printer(void *arg) {
   unsigned long *avg = NULL;
   while (1) {
     sem_wait(&g_printFilledSpaceSemaphore);
@@ -22,4 +22,5 @@ void *printer(void) {
     sem_post(&g_printLeftSpaceSemaphore);
     sleep(1);
   }
+  return arg;
 }

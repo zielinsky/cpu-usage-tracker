@@ -2,7 +2,7 @@
 #include "cputracker.h"
 
 static unsigned long average_cpu_usage(struct proc_stat prev,
-                                struct proc_stat current) {
+                                       struct proc_stat current) {
   unsigned long prevIdle = prev.idle + prev.iowait;
   unsigned long idle = current.idle + current.iowait;
 
@@ -20,11 +20,13 @@ static unsigned long average_cpu_usage(struct proc_stat prev,
   return (total - idle) * 100 / total;
 }
 
-void *analyzer(void) {
+void *analyzer(void *arg) {
   struct proc_stat *prev = malloc((unsigned long)g_nproc * sizeof(struct proc_stat));
   unsigned long *avg = malloc((unsigned long)g_nproc * sizeof(unsigned long));
   unsigned long *bufforAvg;
   struct proc_stat *stats = NULL;
+  pthread_cleanup_push(free, prev);
+  pthread_cleanup_push(free, avg);
   while (1) {
     sem_wait(&g_dataFilledSpaceSemaphore);
 
@@ -53,6 +55,7 @@ void *analyzer(void) {
 
     sem_post(&g_printFilledSpaceSemaphore);
   }
-  free(prev);
-  free(avg);
+  pthread_cleanup_pop(1);
+  pthread_cleanup_pop(1);
+  return arg;
 }

@@ -4,5 +4,5 @@
 
 #define READ_DELAY 50000
 
-void *reader(void);
+void *reader(void *arg);
 #endif
