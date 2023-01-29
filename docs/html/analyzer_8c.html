@@ -81,6 +81,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a60d1e2bdc5c39558234c421a071d6f1c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="analyzer_8c.html#a60d1e2bdc5c39558234c421a071d6f1c">analyzer</a> (void *arg)</td></tr>
+<tr class="memdesc:a60d1e2bdc5c39558234c421a071d6f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyzer function.  <br /></td></tr>
 <tr class="separator:a60d1e2bdc5c39558234c421a071d6f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -100,54 +101,57 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="analyzer_8c_source.html#l00028">28</a> of file <a class="el" href="analyzer_8c_source.html">analyzer.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span>                          {</div>
-<div class="line"><span class="lineno">   29</span>  <span class="keyword">struct </span><a class="code hl_struct" href="structproc__stat.html">proc_stat</a> *prev;</div>
-<div class="line"><span class="lineno">   30</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> *avg;</div>
-<div class="line"><span class="lineno">   31</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> *bufforAvg;</div>
-<div class="line"><span class="lineno">   32</span>  <span class="keyword">struct </span><a class="code hl_struct" href="structproc__stat.html">proc_stat</a> *stats;</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>  (void)arg;</div>
-<div class="line"><span class="lineno">   35</span> </div>
-<div class="line"><span class="lineno">   36</span>  <span class="keywordflow">if</span> ((prev = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structproc__stat.html">proc_stat</a>))) ==</div>
-<div class="line"><span class="lineno">   37</span>      NULL) {</div>
-<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   39</span>  }</div>
-<div class="line"><span class="lineno">   40</span>  <span class="keywordflow">if</span> ((avg = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>))) == NULL) {</div>
-<div class="line"><span class="lineno">   41</span>    free(prev);</div>
-<div class="line"><span class="lineno">   42</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">   43</span>  }</div>
-<div class="line"><span class="lineno">   44</span>  pthread_cleanup_push(free, prev) pthread_cleanup_push(free, avg) <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><span class="lineno">   45</span>    <a class="code hl_function" href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a>(Analyzer);</div>
-<div class="line"><span class="lineno">   46</span> </div>
-<div class="line"><span class="lineno">   47</span>    sem_wait(&amp;g_dataFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   48</span>    pthread_mutex_lock(&amp;g_dataBufferMutex);</div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>    stats = <a class="code hl_function" href="cputracker_8c.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a>();</div>
-<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g_nproc; i++) {</div>
-<div class="line"><span class="lineno">   52</span>      avg[i] = average_cpu_usage(prev[i], stats[i]);</div>
-<div class="line"><span class="lineno">   53</span>      prev[i] = stats[i];</div>
-<div class="line"><span class="lineno">   54</span>    }</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>    pthread_mutex_unlock(&amp;g_dataBufferMutex);</div>
-<div class="line"><span class="lineno">   57</span>    sem_post(&amp;g_dataLeftSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>    <span class="comment">//</span></div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>    sem_wait(&amp;g_printLeftSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   62</span>    pthread_mutex_lock(&amp;g_printBufferMutex);</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>    bufforAvg = <a class="code hl_function" href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a>();</div>
-<div class="line"><span class="lineno">   65</span>    memcpy(bufforAvg, avg, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>));</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>    pthread_mutex_unlock(&amp;g_printBufferMutex);</div>
-<div class="line"><span class="lineno">   68</span>    sem_post(&amp;g_printFilledSpaceSemaphore);</div>
-<div class="line"><span class="lineno">   69</span>  }</div>
-<div class="line"><span class="lineno">   70</span>  pthread_cleanup_pop(1);</div>
-<div class="line"><span class="lineno">   71</span>  pthread_cleanup_pop(1);</div>
-<div class="line"><span class="lineno">   72</span>}</div>
-<div class="ttc" id="acputracker_8c_html_a2b8f2341417ff6536dcfd85113bd3a5d"><div class="ttname"><a href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a></div><div class="ttdeci">unsigned long * get_item_from_print_buffer(void)</div><div class="ttdoc">Function getting item in print buffer.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00079">cputracker.c:79</a></div></div>
-<div class="ttc" id="acputracker_8c_html_a6d7b4993bb9144e4cab9f9c7420c996a"><div class="ttname"><a href="cputracker_8c.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a></div><div class="ttdeci">struct proc_stat * get_item_from_data_buffer(void)</div><div class="ttdoc">Function getting item in data buffer.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00069">cputracker.c:69</a></div></div>
+<p>Analyzer function. </p>
+<p>The Analyzer is responsible for taking data from the buffer and processing it into % CPU usage. </p>
+
+<p class="definition">Definition at line <a class="el" href="analyzer_8c_source.html#l00035">35</a> of file <a class="el" href="analyzer_8c_source.html">analyzer.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   35</span>                          {</div>
+<div class="line"><span class="lineno">   36</span>  <span class="keyword">struct </span><a class="code hl_struct" href="structproc__stat.html">proc_stat</a> *prev;</div>
+<div class="line"><span class="lineno">   37</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> *avg;</div>
+<div class="line"><span class="lineno">   38</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> *bufforAvg;</div>
+<div class="line"><span class="lineno">   39</span>  <span class="keyword">struct </span><a class="code hl_struct" href="structproc__stat.html">proc_stat</a> *stats;</div>
+<div class="line"><span class="lineno">   40</span> </div>
+<div class="line"><span class="lineno">   41</span>  (void)arg;</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>  <span class="keywordflow">if</span> ((prev = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structproc__stat.html">proc_stat</a>))) ==</div>
+<div class="line"><span class="lineno">   44</span>      NULL) {</div>
+<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   46</span>  }</div>
+<div class="line"><span class="lineno">   47</span>  <span class="keywordflow">if</span> ((avg = malloc((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>))) == NULL) {</div>
+<div class="line"><span class="lineno">   48</span>    free(prev);</div>
+<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   50</span>  }</div>
+<div class="line"><span class="lineno">   51</span>  pthread_cleanup_push(free, prev) pthread_cleanup_push(free, avg) <span class="keywordflow">while</span> (1) {</div>
+<div class="line"><span class="lineno">   52</span>    <a class="code hl_function" href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a>(Analyzer);</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    sem_wait(&amp;g_dataFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   55</span>    pthread_mutex_lock(&amp;g_dataBufferMutex);</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    stats = <a class="code hl_function" href="cputracker_8c.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a>();</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g_nproc; i++) {</div>
+<div class="line"><span class="lineno">   59</span>      avg[i] = cpu_usage(prev[i], stats[i]);</div>
+<div class="line"><span class="lineno">   60</span>      prev[i] = stats[i];</div>
+<div class="line"><span class="lineno">   61</span>    }</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>    pthread_mutex_unlock(&amp;g_dataBufferMutex);</div>
+<div class="line"><span class="lineno">   64</span>    sem_post(&amp;g_dataLeftSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>    <span class="comment">//</span></div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>    sem_wait(&amp;g_printLeftSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   69</span>    pthread_mutex_lock(&amp;g_printBufferMutex);</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>    bufforAvg = <a class="code hl_function" href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a>();</div>
+<div class="line"><span class="lineno">   72</span>    memcpy(bufforAvg, avg, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)g_nproc * <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>));</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>    pthread_mutex_unlock(&amp;g_printBufferMutex);</div>
+<div class="line"><span class="lineno">   75</span>    sem_post(&amp;g_printFilledSpaceSemaphore);</div>
+<div class="line"><span class="lineno">   76</span>  }</div>
+<div class="line"><span class="lineno">   77</span>  pthread_cleanup_pop(1);</div>
+<div class="line"><span class="lineno">   78</span>  pthread_cleanup_pop(1);</div>
+<div class="line"><span class="lineno">   79</span>}</div>
+<div class="ttc" id="acputracker_8c_html_a2b8f2341417ff6536dcfd85113bd3a5d"><div class="ttname"><a href="cputracker_8c.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a></div><div class="ttdeci">unsigned long * get_item_from_print_buffer(void)</div><div class="ttdoc">Function getting item from print buffer.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00079">cputracker.c:79</a></div></div>
+<div class="ttc" id="acputracker_8c_html_a6d7b4993bb9144e4cab9f9c7420c996a"><div class="ttname"><a href="cputracker_8c.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a></div><div class="ttdeci">struct proc_stat * get_item_from_data_buffer(void)</div><div class="ttdoc">Function getting item from data buffer.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00069">cputracker.c:69</a></div></div>
 <div class="ttc" id="acputracker_8c_html_ac99b6069bf629214ce6258902739d613"><div class="ttname"><a href="cputracker_8c.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a></div><div class="ttdeci">void notify_watchdog(int id)</div><div class="ttdoc">Notify the watchdog that thread is alive.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8c_source.html#l00089">cputracker.c:89</a></div></div>
 <div class="ttc" id="astructproc__stat_html"><div class="ttname"><a href="structproc__stat.html">proc_stat</a></div><div class="ttdoc">Struct for /proc/stats info.</div><div class="ttdef"><b>Definition:</b> <a href="cputracker_8h_source.html#l00030">cputracker.h:30</a></div></div>
 </div><!-- fragment -->

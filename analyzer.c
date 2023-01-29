@@ -1,12 +1,13 @@
 /// @file analyzer.c
 #include "analyzer.h"
 
-/**
- * Calculates avarage cpu usage.
- * @param[in] prev
- * @param[out] avarage_cpu_usage
+ /**
+ * @brief Calculates cpu usage.
+ * @param prev previous proc_stat
+ * @param current current proc_stat
+ * @return Cpu usage in %
  */
-static unsigned long average_cpu_usage(struct proc_stat prev,
+static unsigned long cpu_usage(struct proc_stat prev,
                                        struct proc_stat current) {
   unsigned long prevIdle = prev.idle + prev.iowait;
   unsigned long idle = current.idle + current.iowait;
@@ -25,6 +26,12 @@ static unsigned long average_cpu_usage(struct proc_stat prev,
   return (total - idle) * 100 / total;
 }
 
+ /**
+ * @brief Analyzer function
+ *
+ * The Analyzer is responsible for taking data from the buffer and processing it into % CPU usage.
+ *
+ */
 void *analyzer(void *arg) {
   struct proc_stat *prev;
   unsigned long *avg;
@@ -49,7 +56,7 @@ void *analyzer(void *arg) {
 
     stats = get_item_from_data_buffer();
     for (int i = 0; i < g_nproc; i++) {
-      avg[i] = average_cpu_usage(prev[i], stats[i]);
+      avg[i] = cpu_usage(prev[i], stats[i]);
       prev[i] = stats[i];
     }
 

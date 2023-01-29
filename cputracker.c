@@ -35,7 +35,7 @@ static void handler(int signum) {
 
 /**
  * @brief Function retrieving the number of threads
- * 
+ *
  * @param signum signal number
  *
  * @return 0 if the number of threads has been retrieved else -1
@@ -50,7 +50,7 @@ static int get_nproc(int *nproc) {
 
 /**
  * @brief Function getting the semaphore value
- * 
+ *
  * @param sem semaphore
  *
  * @return sem value
@@ -62,8 +62,8 @@ static int get_semaphore_value(sem_t *sem) {
 }
 
 /**
- * @brief Function getting item in data buffer
- * 
+ * @brief Function getting item from data buffer
+ *
  * @return proc_stat struct from data buffer
  */
 struct proc_stat *get_item_from_data_buffer(void) {
@@ -72,8 +72,8 @@ struct proc_stat *get_item_from_data_buffer(void) {
 }
 
 /**
- * @brief Function getting item in print buffer
- * 
+ * @brief Function getting item from print buffer
+ *
  * @return proc_stat struct from print buffer
  */
 unsigned long *get_item_from_print_buffer(void) {
@@ -83,7 +83,7 @@ unsigned long *get_item_from_print_buffer(void) {
 
 /**
  * @brief Notify the watchdog that thread is alive
- * 
+ *
  * @param id Thread ID
  */
 void notify_watchdog(int id) {
@@ -93,7 +93,7 @@ void notify_watchdog(int id) {
 }
 
 /**
- * @brief Watchdog function.
+ * @brief Watchdog function
  *
  * This function checks whether the threads are alive.
  * If a thread does not speak for 2 seconds the watchdog kills the program
@@ -116,7 +116,7 @@ static void watchdog(void) {
 }
 
 /**
- * @brief Simple test function with asserts.
+ * @brief Simple test function with asserts
  */
 void main_test(void) {
   int nproc;

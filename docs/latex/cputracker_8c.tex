@@ -8,13 +8,13 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} $\ast$ \mbox{\hyperlink{cputracker_8c_a6d7b4993bb9144e4cab9f9c7420c996a}{get\+\_\+item\+\_\+from\+\_\+data\+\_\+buffer}} (void)
-\begin{DoxyCompactList}\small\item\em Function getting item in data buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function getting item from data buffer. \end{DoxyCompactList}\item 
 unsigned long $\ast$ \mbox{\hyperlink{cputracker_8c_a2b8f2341417ff6536dcfd85113bd3a5d}{get\+\_\+item\+\_\+from\+\_\+print\+\_\+buffer}} (void)
-\begin{DoxyCompactList}\small\item\em Function getting item in print buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function getting item from print buffer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\+\_\+watchdog}} (int id)
 \begin{DoxyCompactList}\small\item\em Notify the watchdog that thread is alive. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{cputracker_8c_aa1407f3b7f6dc9f7ba1c2049f33cfa14}{main\+\_\+test}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Simple test function with asserts. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{cputracker_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
@@ -45,7 +45,7 @@ sem\+\_\+t \mbox{\hyperlink{cputracker_8c_a1f1095a3fda9dda3517fabf56803f2e9}{g\+
 
 
 
-Function getting item in data buffer. 
+Function getting item from data buffer. 
 
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} struct from data buffer 
@@ -70,7 +70,7 @@ Definition at line \mbox{\hyperlink{cputracker_8c_source_l00069}{69}} of file \m
 
 
 
-Function getting item in print buffer. 
+Function getting item from print buffer. 
 
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} struct from print buffer 
@@ -95,65 +95,65 @@ Definition at line \mbox{\hyperlink{cputracker_8c_source_l00079}{79}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{cputracker_8c_source_l00125}{125}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00128}{128}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{struct\ }sigaction\ action;}
-\DoxyCodeLine{00127\ \ \ memset(\&action,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ sigaction));}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&g\_nproc)\ ==\ -\/1)\ \{}
-\DoxyCodeLine{00130\ \ \ \ \ exit(EXIT\_FAILURE);}
-\DoxyCodeLine{00131\ \ \ \}}
-\DoxyCodeLine{00132\ \ \ g\_nproc++;}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ BUFFER\_SIZE;\ i++)\ \{}
-\DoxyCodeLine{00135\ \ \ \ \ g\_dataBuffer[i]\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}}));}
-\DoxyCodeLine{00136\ \ \ \ \ g\_printBuffer[i]\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{if}\ (g\_dataBuffer[i]\ ==\ NULL\ ||\ g\_printBuffer[i]\ ==\ NULL)\ \{}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
-\DoxyCodeLine{00139\ \ \ \ \ \}}
-\DoxyCodeLine{00140\ \ \ \}}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \textcolor{keywordflow}{if}\ (sem\_init(\&g\_dataFilledSpaceSemaphore,\ 0,\ 0)\ ||}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ sem\_init(\&g\_dataLeftSpaceSemaphore,\ 0,\ BUFFER\_SIZE))\ \{}
-\DoxyCodeLine{00144\ \ \ \ \ exit(EXIT\_FAILURE);}
-\DoxyCodeLine{00145\ \ \ \}}
-\DoxyCodeLine{00146\ }
-\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{if}\ (sem\_init(\&g\_printFilledSpaceSemaphore,\ 0,\ 0)\ ||}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ sem\_init(\&g\_printLeftSpaceSemaphore,\ 0,\ BUFFER\_SIZE))\ \{}
-\DoxyCodeLine{00149\ \ \ \ \ exit(EXIT\_FAILURE);}
-\DoxyCodeLine{00150\ \ \ \}}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00152\ \ \ pthread\_create(\&readerThreadId,\ NULL,\ reader,\ NULL);}
-\DoxyCodeLine{00153\ \ \ pthread\_create(\&analyzerThreadId,\ NULL,\ analyzer,\ NULL);}
-\DoxyCodeLine{00154\ \ \ pthread\_create(\&printerThreadId,\ NULL,\ printer,\ NULL);}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ action.sa\_handler\ =\ handler;}
-\DoxyCodeLine{00157\ \ \ sigaction(SIGTERM,\ \&action,\ NULL);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{struct\ }sigaction\ action;}
+\DoxyCodeLine{00130\ \ \ memset(\&action,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ sigaction));}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&g\_nproc)\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00134\ \ \ \}}
+\DoxyCodeLine{00135\ \ \ g\_nproc++;}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ BUFFER\_SIZE;\ i++)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ g\_dataBuffer[i]\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}}));}
+\DoxyCodeLine{00139\ \ \ \ \ g\_printBuffer[i]\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{if}\ (g\_dataBuffer[i]\ ==\ NULL\ ||\ g\_printBuffer[i]\ ==\ NULL)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{if}\ (sem\_init(\&g\_dataFilledSpaceSemaphore,\ 0,\ 0)\ ||}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ sem\_init(\&g\_dataLeftSpaceSemaphore,\ 0,\ BUFFER\_SIZE))\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordflow}{if}\ (sem\_init(\&g\_printFilledSpaceSemaphore,\ 0,\ 0)\ ||}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ sem\_init(\&g\_printLeftSpaceSemaphore,\ 0,\ BUFFER\_SIZE))\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ pthread\_create(\&readerThreadId,\ NULL,\ reader,\ NULL);}
+\DoxyCodeLine{00156\ \ \ pthread\_create(\&analyzerThreadId,\ NULL,\ \mbox{\hyperlink{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}{analyzer}},\ NULL);}
+\DoxyCodeLine{00157\ \ \ pthread\_create(\&printerThreadId,\ NULL,\ printer,\ NULL);}
 \DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ watchdog();}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00161\ \ \ pthread\_join(readerThreadId,\ NULL);}
-\DoxyCodeLine{00162\ \ \ pthread\_join(analyzerThreadId,\ NULL);}
-\DoxyCodeLine{00163\ \ \ pthread\_join(printerThreadId,\ NULL);}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00165\ \ \ pthread\_mutex\_destroy(\&g\_dataBufferMutex);}
-\DoxyCodeLine{00166\ \ \ sem\_destroy(\&g\_dataFilledSpaceSemaphore);}
-\DoxyCodeLine{00167\ \ \ sem\_destroy(\&g\_dataLeftSpaceSemaphore);}
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \ \ pthread\_mutex\_destroy(\&g\_printBufferMutex);}
-\DoxyCodeLine{00170\ \ \ sem\_destroy(\&g\_printFilledSpaceSemaphore);}
-\DoxyCodeLine{00171\ \ \ sem\_destroy(\&g\_printLeftSpaceSemaphore);}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00173\ \ \ pthread\_mutex\_destroy(\&watchdogMutex);}
-\DoxyCodeLine{00174\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ BUFFER\_SIZE;\ i++)\ \{}
-\DoxyCodeLine{00175\ \ \ \ \ free(g\_dataBuffer[i]);}
-\DoxyCodeLine{00176\ \ \ \ \ free(g\_printBuffer[i]);}
-\DoxyCodeLine{00177\ \ \ \}}
-\DoxyCodeLine{00178\ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00179\ \}}
+\DoxyCodeLine{00159\ \ \ action.sa\_handler\ =\ handler;}
+\DoxyCodeLine{00160\ \ \ sigaction(SIGTERM,\ \&action,\ NULL);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ watchdog();}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ pthread\_join(readerThreadId,\ NULL);}
+\DoxyCodeLine{00165\ \ \ pthread\_join(analyzerThreadId,\ NULL);}
+\DoxyCodeLine{00166\ \ \ pthread\_join(printerThreadId,\ NULL);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ pthread\_mutex\_destroy(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00169\ \ \ sem\_destroy(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{00170\ \ \ sem\_destroy(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ pthread\_mutex\_destroy(\&g\_printBufferMutex);}
+\DoxyCodeLine{00173\ \ \ sem\_destroy(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{00174\ \ \ sem\_destroy(\&g\_printLeftSpaceSemaphore);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ pthread\_mutex\_destroy(\&watchdogMutex);}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ BUFFER\_SIZE;\ i++)\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ free(g\_dataBuffer[i]);}
+\DoxyCodeLine{00179\ \ \ \ \ free(g\_printBuffer[i]);}
+\DoxyCodeLine{00180\ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00182\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{cputracker_8c_aa1407f3b7f6dc9f7ba1c2049f33cfa14}\label{cputracker_8c_aa1407f3b7f6dc9f7ba1c2049f33cfa14}} 
@@ -164,16 +164,20 @@ Definition at line \mbox{\hyperlink{cputracker_8c_source_l00125}{125}} of file \
 
 
 
-Definition at line \mbox{\hyperlink{cputracker_8c_source_l00118}{118}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+Simple test function with asserts. 
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00121}{121}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{int}\ nproc;}
-\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&nproc)\ ==\ 0)\ \{}
-\DoxyCodeLine{00121\ \ \ \ \ assert(nproc\ >=\ 1);}
-\DoxyCodeLine{00122\ \ \ \}}
-\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{int}\ nproc;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&nproc)\ ==\ 0)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ assert(nproc\ >=\ 1);}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{cputracker_8c_ac99b6069bf629214ce6258902739d613}\label{cputracker_8c_ac99b6069bf629214ce6258902739d613}} 

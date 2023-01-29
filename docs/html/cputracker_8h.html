@@ -120,15 +120,16 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="memItemLeft" align="right" valign="top">unsigned long *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8h.html#a2b8f2341417ff6536dcfd85113bd3a5d">get_item_from_print_buffer</a> (void)</td></tr>
-<tr class="memdesc:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item in print buffer.  <br /></td></tr>
+<tr class="memdesc:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item from print buffer.  <br /></td></tr>
 <tr class="separator:a2b8f2341417ff6536dcfd85113bd3a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structproc__stat.html">proc_stat</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8h.html#a6d7b4993bb9144e4cab9f9c7420c996a">get_item_from_data_buffer</a> (void)</td></tr>
-<tr class="memdesc:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item in data buffer.  <br /></td></tr>
+<tr class="memdesc:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function getting item from data buffer.  <br /></td></tr>
 <tr class="separator:a6d7b4993bb9144e4cab9f9c7420c996a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac99b6069bf629214ce6258902739d613"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8h.html#ac99b6069bf629214ce6258902739d613">notify_watchdog</a> (int id)</td></tr>
 <tr class="memdesc:ac99b6069bf629214ce6258902739d613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notify the watchdog that thread is alive.  <br /></td></tr>
 <tr class="separator:ac99b6069bf629214ce6258902739d613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1407f3b7f6dc9f7ba1c2049f33cfa14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cputracker_8h.html#aa1407f3b7f6dc9f7ba1c2049f33cfa14">main_test</a> (void)</td></tr>
+<tr class="memdesc:aa1407f3b7f6dc9f7ba1c2049f33cfa14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple test function with asserts.  <br /></td></tr>
 <tr class="separator:aa1407f3b7f6dc9f7ba1c2049f33cfa14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -266,7 +267,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function getting item in data buffer. </p>
+<p>Function getting item from data buffer. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structproc__stat.html" title="Struct for /proc/stats info.">proc_stat</a> struct from data buffer </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00069">69</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
@@ -293,7 +294,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function getting item in print buffer. </p>
+<p>Function getting item from print buffer. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structproc__stat.html" title="Struct for /proc/stats info.">proc_stat</a> struct from print buffer </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00079">79</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
@@ -320,13 +321,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00118">118</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  118</span>                     {</div>
-<div class="line"><span class="lineno">  119</span>  <span class="keywordtype">int</span> nproc;</div>
-<div class="line"><span class="lineno">  120</span>  <span class="keywordflow">if</span> (get_nproc(&amp;nproc) == 0) {</div>
-<div class="line"><span class="lineno">  121</span>    assert(nproc &gt;= 1);</div>
-<div class="line"><span class="lineno">  122</span>  }</div>
-<div class="line"><span class="lineno">  123</span>}</div>
+<p>Simple test function with asserts. </p>
+
+<p class="definition">Definition at line <a class="el" href="cputracker_8c_source.html#l00121">121</a> of file <a class="el" href="cputracker_8c_source.html">cputracker.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  121</span>                     {</div>
+<div class="line"><span class="lineno">  122</span>  <span class="keywordtype">int</span> nproc;</div>
+<div class="line"><span class="lineno">  123</span>  <span class="keywordflow">if</span> (get_nproc(&amp;nproc) == 0) {</div>
+<div class="line"><span class="lineno">  124</span>    assert(nproc &gt;= 1);</div>
+<div class="line"><span class="lineno">  125</span>  }</div>
+<div class="line"><span class="lineno">  126</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

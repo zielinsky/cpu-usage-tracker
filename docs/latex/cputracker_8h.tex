@@ -38,13 +38,13 @@ enum \mbox{\hyperlink{cputracker_8h_a3a740257b1966921d2be7718d2e37e50}{Ids}} \{ 
 \begin{DoxyCompactItemize}
 \item 
 unsigned long $\ast$ \mbox{\hyperlink{cputracker_8h_a2b8f2341417ff6536dcfd85113bd3a5d}{get\+\_\+item\+\_\+from\+\_\+print\+\_\+buffer}} (void)
-\begin{DoxyCompactList}\small\item\em Function getting item in print buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function getting item from print buffer. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} $\ast$ \mbox{\hyperlink{cputracker_8h_a6d7b4993bb9144e4cab9f9c7420c996a}{get\+\_\+item\+\_\+from\+\_\+data\+\_\+buffer}} (void)
-\begin{DoxyCompactList}\small\item\em Function getting item in data buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function getting item from data buffer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{cputracker_8h_ac99b6069bf629214ce6258902739d613}{notify\+\_\+watchdog}} (int id)
 \begin{DoxyCompactList}\small\item\em Notify the watchdog that thread is alive. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{cputracker_8h_aa1407f3b7f6dc9f7ba1c2049f33cfa14}{main\+\_\+test}} (void)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Simple test function with asserts. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -148,7 +148,7 @@ Definition at line \mbox{\hyperlink{cputracker_8h_source_l00025}{25}} of file \m
 
 
 
-Function getting item in data buffer. 
+Function getting item from data buffer. 
 
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} struct from data buffer 
@@ -173,7 +173,7 @@ Definition at line \mbox{\hyperlink{cputracker_8c_source_l00069}{69}} of file \m
 
 
 
-Function getting item in print buffer. 
+Function getting item from print buffer. 
 
 \begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{structproc__stat}{proc\+\_\+stat}} struct from print buffer 
@@ -198,16 +198,20 @@ Definition at line \mbox{\hyperlink{cputracker_8c_source_l00079}{79}} of file \m
 
 
 
-Definition at line \mbox{\hyperlink{cputracker_8c_source_l00118}{118}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
+Simple test function with asserts. 
+
+
+
+Definition at line \mbox{\hyperlink{cputracker_8c_source_l00121}{121}} of file \mbox{\hyperlink{cputracker_8c_source}{cputracker.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{int}\ nproc;}
-\DoxyCodeLine{00120\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&nproc)\ ==\ 0)\ \{}
-\DoxyCodeLine{00121\ \ \ \ \ assert(nproc\ >=\ 1);}
-\DoxyCodeLine{00122\ \ \ \}}
-\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{int}\ nproc;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{if}\ (get\_nproc(\&nproc)\ ==\ 0)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ assert(nproc\ >=\ 1);}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{cputracker_8h_ac99b6069bf629214ce6258902739d613}\label{cputracker_8h_ac99b6069bf629214ce6258902739d613}} 

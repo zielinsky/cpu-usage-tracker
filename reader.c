@@ -1,6 +1,12 @@
 /// @file reader.c
 #include "reader.h"
 
+ /**
+ * @brief Read cpu stats from /proc/stats
+ * @param stats The function returns the data read by this pointer
+ * @param threads Threads number
+ * @return 0 if reading went well else -1
+ */
 static int get_proc_stats(struct proc_stat *stats, int threads) {
   FILE *file = fopen("/proc/stat", "r");
   char line[1024];
@@ -20,6 +26,9 @@ static int get_proc_stats(struct proc_stat *stats, int threads) {
   return 0;
 }
 
+/**
+ * @brief Simple test function with asserts
+ */
 void reader_test(void) {
   struct proc_stat stats;
   if (get_proc_stats(&stats, 1) == 0) {

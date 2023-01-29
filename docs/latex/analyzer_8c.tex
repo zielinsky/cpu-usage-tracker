@@ -5,7 +5,7 @@
 \begin{DoxyCompactItemize}
 \item 
 void $\ast$ \mbox{\hyperlink{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}{analyzer}} (void $\ast$arg)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Analyzer function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -17,54 +17,58 @@ void $\ast$ \mbox{\hyperlink{analyzer_8c_a60d1e2bdc5c39558234c421a071d6f1c}{anal
 
 
 
-Definition at line \mbox{\hyperlink{analyzer_8c_source_l00028}{28}} of file \mbox{\hyperlink{analyzer_8c_source}{analyzer.\+c}}.
+Analyzer function. 
+
+The Analyzer is responsible for taking data from the buffer and processing it into \% CPU usage. 
+
+Definition at line \mbox{\hyperlink{analyzer_8c_source_l00035}{35}} of file \mbox{\hyperlink{analyzer_8c_source}{analyzer.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *prev;}
-\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
-\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *bufforAvg;}
-\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *stats;}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ (void)arg;}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \textcolor{keywordflow}{if}\ ((prev\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}})))\ ==}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ NULL)\ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{00039\ \ \ \}}
-\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{if}\ ((avg\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})))\ ==\ NULL)\ \{}
-\DoxyCodeLine{00041\ \ \ \ \ free(prev);}
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{00043\ \ \ \}}
-\DoxyCodeLine{00044\ \ \ pthread\_cleanup\_push(free,\ prev)\ pthread\_cleanup\_push(free,\ avg)\ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(Analyzer);}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ sem\_wait(\&g\_dataFilledSpaceSemaphore);}
-\DoxyCodeLine{00048\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \ \ stats\ =\ \mbox{\hyperlink{cputracker_8c_a6d7b4993bb9144e4cab9f9c7420c996a}{get\_item\_from\_data\_buffer}}();}
-\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
-\DoxyCodeLine{00052\ \ \ \ \ \ \ avg[i]\ =\ average\_cpu\_usage(prev[i],\ stats[i]);}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ prev[i]\ =\ stats[i];}
-\DoxyCodeLine{00054\ \ \ \ \ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
-\DoxyCodeLine{00057\ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ sem\_wait(\&g\_printLeftSpaceSemaphore);}
-\DoxyCodeLine{00062\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ bufforAvg\ =\ \mbox{\hyperlink{cputracker_8c_a2b8f2341417ff6536dcfd85113bd3a5d}{get\_item\_from\_print\_buffer}}();}
-\DoxyCodeLine{00065\ \ \ \ \ memcpy(bufforAvg,\ avg,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
-\DoxyCodeLine{00068\ \ \ \ \ sem\_post(\&g\_printFilledSpaceSemaphore);}
-\DoxyCodeLine{00069\ \ \ \}}
-\DoxyCodeLine{00070\ \ \ pthread\_cleanup\_pop(1);}
-\DoxyCodeLine{00071\ \ \ pthread\_cleanup\_pop(1);}
-\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *prev;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *avg;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *bufforAvg;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structproc__stat}{proc\_stat}}\ *stats;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ (void)arg;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordflow}{if}\ ((prev\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structproc__stat}{proc\_stat}})))\ ==}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ NULL)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00046\ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordflow}{if}\ ((avg\ =\ malloc((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})))\ ==\ NULL)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ free(prev);}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ \ \ pthread\_cleanup\_push(free,\ prev)\ pthread\_cleanup\_push(free,\ avg)\ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{cputracker_8c_ac99b6069bf629214ce6258902739d613}{notify\_watchdog}}(Analyzer);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ sem\_wait(\&g\_dataFilledSpaceSemaphore);}
+\DoxyCodeLine{00055\ \ \ \ \ pthread\_mutex\_lock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ stats\ =\ \mbox{\hyperlink{cputracker_8c_a6d7b4993bb9144e4cab9f9c7420c996a}{get\_item\_from\_data\_buffer}}();}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ g\_nproc;\ i++)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ avg[i]\ =\ cpu\_usage(prev[i],\ stats[i]);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ prev[i]\ =\ stats[i];}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ pthread\_mutex\_unlock(\&g\_dataBufferMutex);}
+\DoxyCodeLine{00064\ \ \ \ \ sem\_post(\&g\_dataLeftSpaceSemaphore);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ sem\_wait(\&g\_printLeftSpaceSemaphore);}
+\DoxyCodeLine{00069\ \ \ \ \ pthread\_mutex\_lock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ bufforAvg\ =\ \mbox{\hyperlink{cputracker_8c_a2b8f2341417ff6536dcfd85113bd3a5d}{get\_item\_from\_print\_buffer}}();}
+\DoxyCodeLine{00072\ \ \ \ \ memcpy(bufforAvg,\ avg,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})g\_nproc\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}));}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ pthread\_mutex\_unlock(\&g\_printBufferMutex);}
+\DoxyCodeLine{00075\ \ \ \ \ sem\_post(\&g\_printFilledSpaceSemaphore);}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{00078\ \ \ pthread\_cleanup\_pop(1);}
+\DoxyCodeLine{00079\ \}}
 
 \end{DoxyCode}
