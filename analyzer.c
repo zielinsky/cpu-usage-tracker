@@ -21,8 +21,16 @@ static unsigned long average_cpu_usage(struct proc_stat prev,
 }
 
 void *analyzer(void *arg) {
-  struct proc_stat *prev = malloc((unsigned long)g_nproc * sizeof(struct proc_stat));
+  struct proc_stat *prev =
+      malloc((unsigned long)g_nproc * sizeof(struct proc_stat));
+  if (prev == NULL) {
+    return NULL;
+  }
   unsigned long *avg = malloc((unsigned long)g_nproc * sizeof(unsigned long));
+  if (avg == NULL) {
+    free(prev);
+    return NULL;
+  }
   unsigned long *bufforAvg;
   struct proc_stat *stats = NULL;
   pthread_cleanup_push(free, prev);

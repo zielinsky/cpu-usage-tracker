@@ -1,4 +1,5 @@
 #include "reader.h"
+#include <pthread.h>
 
 static int get_proc_stats(struct proc_stat *stats) {
   FILE *file = fopen("/proc/stat", "r");
