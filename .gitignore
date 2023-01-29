@@ -7,3 +7,4 @@ reader.o
 cputracker.o
 cputracker
 analyzer.o
+printer.o

@@ -1,12 +1,23 @@
 #include "cputracker.h"
 #include "analyzer.h"
 #include "reader.h"
+#include "printer.h"
 
 int g_nproc = 0;
-struct proc_stat *g_buffer[BUFFER_SIZE];
-pthread_mutex_t g_bufferMutex = PTHREAD_MUTEX_INITIALIZER;
-sem_t g_filledSpaceSemaphore;
-sem_t g_leftSpaceSemaphore;
+struct proc_stat *g_dataBuffer[BUFFER_SIZE];
+pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
+sem_t g_dataFilledSpaceSemaphore;
+sem_t g_dataLeftSpaceSemaphore;
+
+
+unsigned long *g_printBuffer[BUFFER_SIZE];
+pthread_mutex_t g_printBufferMutex = PTHREAD_MUTEX_INITIALIZER;
+sem_t g_printFilledSpaceSemaphore;
+sem_t g_printLeftSpaceSemaphore;
+
+pthread_t readerThreadId;
+pthread_t analyzerThreadId;
+pthread_t printerThreadId;
 
 int get_nproc(int *nproc) {
   *nproc = sysconf(_SC_NPROCESSORS_ONLN);
@@ -22,9 +33,14 @@ int get_semaphore_value(sem_t *sem) {
   return sval;
 }
 
-struct proc_stat *get_item_from_buffer() {
-  int index = get_semaphore_value(&g_filledSpaceSemaphore);
-  return g_buffer[index];
+struct proc_stat *get_item_from_data_buffer() {
+  int index = get_semaphore_value(&g_dataFilledSpaceSemaphore);
+  return g_dataBuffer[index];
+}
+
+unsigned long *get_item_from_print_buffer() {
+  int index = get_semaphore_value(&g_printFilledSpaceSemaphore);
+  return g_printBuffer[index];
 }
 
 int main() {
@@ -34,29 +50,41 @@ int main() {
   g_nproc++;
 
   for (int i = 0; i < BUFFER_SIZE; i++) {
-    g_buffer[i] = malloc(g_nproc * sizeof(struct proc_stat));
-    if (g_buffer[i] == NULL) {
+    g_dataBuffer[i] = malloc(g_nproc * sizeof(struct proc_stat));
+    g_printBuffer[i] = malloc(g_nproc * sizeof(unsigned long));
+    if (g_dataBuffer[i] == NULL || g_printBuffer[i] == NULL) {
       exit(EXIT_FAILURE);
     }
   }
 
-  if (sem_init(&g_filledSpaceSemaphore, 0, 0) ||
-      sem_init(&g_leftSpaceSemaphore, 0, BUFFER_SIZE)) {
+  if (sem_init(&g_dataFilledSpaceSemaphore, 0, 0) ||
+      sem_init(&g_dataLeftSpaceSemaphore, 0, BUFFER_SIZE)) {
     exit(EXIT_FAILURE);
   }
 
-  pthread_t readerThreadId;
-  pthread_t analyzerThreadId;
+  if (sem_init(&g_printFilledSpaceSemaphore, 0, 0) ||
+      sem_init(&g_printLeftSpaceSemaphore, 0, BUFFER_SIZE)) {
+    exit(EXIT_FAILURE);
+  }
+
   pthread_create(&readerThreadId, NULL, reader, NULL);
   pthread_create(&analyzerThreadId, NULL, analyzer, NULL);
+  pthread_create(&printerThreadId, NULL, printer, NULL);
+
   pthread_join(readerThreadId, NULL);
   pthread_join(analyzerThreadId, NULL);
+  pthread_join(printerThreadId, NULL);
 
-  pthread_mutex_destroy(&g_bufferMutex);
-  sem_destroy(&g_filledSpaceSemaphore);
-  sem_destroy(&g_leftSpaceSemaphore);
+  pthread_mutex_destroy(&g_dataBufferMutex);
+  sem_destroy(&g_dataFilledSpaceSemaphore);
+  sem_destroy(&g_dataLeftSpaceSemaphore);
+
+  pthread_mutex_destroy(&g_printBufferMutex);
+  sem_destroy(&g_printFilledSpaceSemaphore);
+  sem_destroy(&g_printLeftSpaceSemaphore);
   for (int i = 0; i < BUFFER_SIZE; i++) {
-    free(g_buffer[i]);
+    free(g_dataBuffer[i]);
+    free(g_printBuffer[i]);
   }
   return 0;
 }

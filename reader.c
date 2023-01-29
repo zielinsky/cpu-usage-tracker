@@ -25,20 +25,20 @@ void *reader() {
   struct proc_stat *stats = NULL;
   while (1) {
 
-    sem_wait(&g_leftSpaceSemaphore);
+    sem_wait(&g_dataLeftSpaceSemaphore);
 
-    pthread_mutex_lock(&g_bufferMutex);
+    pthread_mutex_lock(&g_dataBufferMutex);
 
-    stats = get_item_from_buffer();
+    stats = get_item_from_data_buffer();
 
     if (get_proc_stats(stats) == -1) {
-      pthread_mutex_unlock(&g_bufferMutex);
+      pthread_mutex_unlock(&g_dataBufferMutex);
       continue;
     }
 
-    pthread_mutex_unlock(&g_bufferMutex);
+    pthread_mutex_unlock(&g_dataBufferMutex);
 
-    sem_post(&g_filledSpaceSemaphore);
+    sem_post(&g_dataFilledSpaceSemaphore);
     usleep(READ_DELAY);
   }
 }

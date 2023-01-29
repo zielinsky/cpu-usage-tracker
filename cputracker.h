@@ -10,7 +10,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 5
 
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
@@ -34,12 +34,19 @@ struct proc_stat {
 };
 
 extern int g_nproc;
-extern struct proc_stat *g_buffer[];
-extern pthread_mutex_t g_bufferMutex;
-extern sem_t g_filledSpaceSemaphore;
-extern sem_t g_leftSpaceSemaphore;
+extern struct proc_stat *g_dataBuffer[];
+extern pthread_mutex_t g_dataBufferMutex;
+extern sem_t g_dataFilledSpaceSemaphore;
+extern sem_t g_dataLeftSpaceSemaphore;
+
+
+extern unsigned long *g_printBuffer[BUFFER_SIZE];
+extern pthread_mutex_t g_printBufferMutex;
+extern sem_t g_printFilledSpaceSemaphore;
+extern sem_t g_printLeftSpaceSemaphore;
 
 int get_nproc(int *nproc);
 int get_semaphore_value(sem_t *sem);
-struct proc_stat *get_item_from_buffer();
+unsigned long *get_item_from_print_buffer();
+struct proc_stat *get_item_from_data_buffer();
 #endif
