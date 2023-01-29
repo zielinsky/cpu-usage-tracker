@@ -1,16 +1,15 @@
 #include "analyzer.h"
 #include "cputracker.h"
-#include <stdlib.h>
-#include <unistd.h>
 
-unsigned long average_cpu_usage(struct proc_stat prev, struct proc_stat current) {
+unsigned long average_cpu_usage(struct proc_stat prev,
+                                struct proc_stat current) {
   unsigned long prevIdle = prev.idle + prev.iowait;
   unsigned long idle = current.idle + current.iowait;
 
   unsigned long prevNonIdle = prev.user + prev.nice + prev.system + prev.irq +
-                                prev.softirq + prev.steal;
-  unsigned long nonIdle = current.user + current.nice + current.system + current.irq +
-                           current.softirq + current.steal;
+                              prev.softirq + prev.steal;
+  unsigned long nonIdle = current.user + current.nice + current.system +
+                          current.irq + current.softirq + current.steal;
 
   unsigned long prevTotal = prevIdle + prevNonIdle;
   unsigned long total = idle + nonIdle;
@@ -47,7 +46,7 @@ void *analyzer() {
     pthread_mutex_lock(&g_printBufferMutex);
 
     unsigned long *bufforAvg = get_item_from_print_buffer();
-    memcpy(bufforAvg, avg, g_nproc*sizeof(unsigned long));
+    memcpy(bufforAvg, avg, g_nproc * sizeof(unsigned long));
 
     pthread_mutex_unlock(&g_printBufferMutex);
 

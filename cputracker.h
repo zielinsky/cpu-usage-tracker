@@ -39,7 +39,6 @@ extern pthread_mutex_t g_dataBufferMutex;
 extern sem_t g_dataFilledSpaceSemaphore;
 extern sem_t g_dataLeftSpaceSemaphore;
 
-
 extern unsigned long *g_printBuffer[BUFFER_SIZE];
 extern pthread_mutex_t g_printBufferMutex;
 extern sem_t g_printFilledSpaceSemaphore;

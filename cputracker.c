@@ -1,14 +1,13 @@
 #include "cputracker.h"
 #include "analyzer.h"
-#include "reader.h"
 #include "printer.h"
+#include "reader.h"
 
 int g_nproc = 0;
 struct proc_stat *g_dataBuffer[BUFFER_SIZE];
 pthread_mutex_t g_dataBufferMutex = PTHREAD_MUTEX_INITIALIZER;
 sem_t g_dataFilledSpaceSemaphore;
 sem_t g_dataLeftSpaceSemaphore;
-
 
 unsigned long *g_printBuffer[BUFFER_SIZE];
 pthread_mutex_t g_printBufferMutex = PTHREAD_MUTEX_INITIALIZER;
